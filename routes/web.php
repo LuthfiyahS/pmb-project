@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +19,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+/**
+ * socialite auth
+ */
+Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');    
+
+    //user/pengguna
+    Route::get('/data-user', [UserController::class, 'datauser']);
+    Route::post('/save-user', [UserController::class, 'simpanuser']);
+    Route::get('/edit-user/{user_id}', [UserController::class, 'edituser']);
+    Route::post('/update-user/{user_id}', [UserController::class, 'updateuser']);
+    Route::get('/delete-user/{user_id}', [UserController::class, 'hapususer']);
+
+});
 
 require __DIR__.'/auth.php';

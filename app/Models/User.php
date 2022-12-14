@@ -17,10 +17,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $primaryKey= "id";
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -49,5 +51,8 @@ class User extends Authenticatable
     {
     return $this->hasMany(SocialAccount::class);
     }
-
+    public function profile()
+    {
+        return $this->hasOne(ProfileUsers::class);
+    }
 }

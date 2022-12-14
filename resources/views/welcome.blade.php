@@ -62,6 +62,15 @@
                     <input type="submit" value="MASUK" class="btn solid" />
                     
                 <br>
+                    <p class="text-center">Atau Masuk Menggunakan</p>
+                <div class="google-btn">
+                    <div class="google-icon-wrapper">
+                        <a href="/auth/google">
+                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                        </a>
+                    </div>
+                  </div>
+                <hr>
                     <p class="social-text">Sosial Media Kami</p>
                 <div class="social-media">
                     <a href="#" class="social-icon">
@@ -122,6 +131,15 @@
                     <input type="submit" class="btn" value="DAFTAR" />
                     
                 <br>
+                <p class="text-center">Atau Daftar Menggunakan</p>
+                <div class="google-btn">
+                    <div class="google-icon-wrapper">
+                        <a href="/auth/google">
+                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                        </a>
+                    </div>
+                  </div>
+                <hr>
                     <p class="social-text">Sosial Media Kami</p>
                 <div class="social-media">
                     <a href="#" class="social-icon">

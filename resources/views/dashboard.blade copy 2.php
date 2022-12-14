@@ -123,11 +123,11 @@
                                                         $bb = 0;
                                                     @endphp
                                                     @foreach ($viewTotal as $x)
-                                                        @if (!$x->status)
+                                                        @if ($x->status_pendaftaran == 'Belum Terverifikasi')
                                                             @php
                                                                 $aa = $x->jumlah;
                                                             @endphp
-                                                        @elseif ($x->status )
+                                                        @elseif ($x->status_pendaftaran == 'Terverifikasi')
                                                             @php
                                                                 $bb = $x->jumlah;
                                                             @endphp
@@ -199,10 +199,7 @@
                                                     <h4 class="fs-18 font-w600 mb-5 text-nowrap">Hasil Seleksi Pendaftar</h4>
                                                     <div class="progress default-progress">
 
-                                                        @php
-                                                        $a = 0;
-                                                        $b = 0;
-                                                        @endphp
+
                                                         @foreach ($jmlpengumuman as $x)
                                                             @if ($x->hasil_seleksi == 'LULUS')
                                                                 @php
@@ -345,13 +342,13 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            @if ($x->status == 'Terverifikasi')
+                                                            @if ($x->status_pendaftaran == 'Terverifikasi')
                                                                 <span class="badge badge-success">Terverifikasi<span
                                                                         class="ms-1 fa fa-check"></span>
-                                                                @elseif($x->status == 'Belum Terverifikasi')
+                                                                @elseif($x->status_pendaftaran == 'Belum Terverifikasi')
                                                                     <span class="badge badge-warning">Belum Terverifikasi<span
                                                                             class="ms-1 fas fa-stream"></span>
-                                                                    @elseif($x->status == 'Tidak Sah')
+                                                                    @elseif($x->status_pendaftaran == 'Tidak Sah')
                                                                         <span class="badge badge-info">Tidak Sesuai<span
                                                                                 class="ms-1 fa fa-ban"></span>
                                                                         @else
