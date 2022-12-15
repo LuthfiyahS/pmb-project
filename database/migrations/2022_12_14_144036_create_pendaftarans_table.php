@@ -110,7 +110,7 @@ class CreatePendaftaransTable extends Migration
             $table->string('prestasi')->nullable();
 
 
-            $table->boolean('status');
+            $table->string('status_pendaftaran');
             $table->datetime('tgl_pendaftaran');
             $table->timestamps();
         });

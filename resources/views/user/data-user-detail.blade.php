@@ -40,7 +40,7 @@
                         <span class="nav-text">Data Transaksi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="data-registration">Pendaftaran</a></li>
+                        <li><a href="{{route('data-registration')}}">Pendaftaran</a></li>
                         <li><a href="data-payment">Pembayaran</a></li>
                     </ul>
                 </li>
@@ -50,7 +50,7 @@
                     </a>
                 </li>
             @else
-                            <li><a href="data-registration" aria-expanded="false">
+                            <li><a href="{{route('data-registration')}}" aria-expanded="false">
                                     <i class="fa fa-database"></i>
                                     <span class="nav-text">Pendaftaran</span>
                                 </a>

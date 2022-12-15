@@ -38,8 +38,8 @@ class DashboardController extends Controller
     public function dashboard(){
         $dataPendaftar = Pendaftaran::select( DB::raw('count(*) as jmlpendaftar'),'tahun_masuk')
         ->groupBy('tahun_masuk')->get();
-        $data = Pendaftaran::select('status', DB::raw('count(*) as jumlah'),)
-        ->groupBy('status')->get();
+        $data = Pendaftaran::select('status_pendaftaran', DB::raw('count(*) as jumlah'),)
+        ->groupBy('status_pendaftaran')->get();
         $pendaftar = Pendaftaran::all();
         $jmlpendaftar = Pendaftaran::all()->count();
         $dataUser = User::all();

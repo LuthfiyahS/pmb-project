@@ -71,7 +71,7 @@ class PendaftaranSeeder extends Seeder
             // TODO: belum jadi
             'tgl_pendaftaran' =>now(),
             'created_at' => now(),
-            'status'  => false,
+            'status_pendaftaran'  => "Selesai",
         ]);
 
         DB::table('pembayaran')->insert([

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\JadwalKegiatanController;
+use App\Http\Controllers\PendaftaranController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +56,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/save-jadwal', [JadwalKegiatanController::class, 'simpanjadwal']);
     Route::post('/update-jadwal/{id}', [JadwalKegiatanController::class, 'updatejadwal']);
     Route::get('/delete-jadwal/{id}', [JadwalKegiatanController::class, 'hapusjadwal']);
+
+    Route::get('/data-registration', [PendaftaranController::class, 'datapendaftaran'])->name('data-registration');
+    Route::get('/form-registration', [PendaftaranController::class, 'inputpendaftaran']);
+    Route::post('/save-registration', [PendaftaranController::class, 'simpanpendaftaran']);
+    Route::get('/edit-registration/{id_pendaftaran}', [PendaftaranController::class, 'editpendaftaran']);
+    Route::post('/update-registration/{id_pendaftaran}', [PendaftaranController::class, 'updatependaftaran']);
+    Route::get('/delete-registration/{id_pendaftaran}', [PendaftaranController::class, 'hapuspendaftaran']);
+    Route::get('/detail-registration/{id_pendaftaran}', [PendaftaranController::class, 'detailpendaftaran']);
+    Route::get('/card-registration/{id_pendaftaran}', [PendaftaranController::class, 'kartupendaftaran']);
+
+    Route::get('/verified-registration/{id_pendaftaran}', [PendaftaranController::class, 'verifikasistatuspendaftaran']);
+    Route::get('/notverified-registration/{id_pendaftaran}', [PendaftaranController::class, 'notverifikasistatuspendaftaran']);
+    Route::get('/invalid-registration/{id_pendaftaran}', [PendaftaranController::class, 'invalidstatuspendaftaran']);
+
 });
 
 require __DIR__.'/auth.php';

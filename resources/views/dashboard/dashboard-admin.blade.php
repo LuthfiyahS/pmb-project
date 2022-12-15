@@ -13,7 +13,7 @@
                                         @endauth</h2>
                                     <span>Terus pantau kegiatan penerimaan mahasiswa baru politeknik enjinering
                                         indorama</span>
-                                    <a href="data-registration" class="btn btn-rounded  fs-18 font-w500">Lihat
+                                    <a href="{{route('data-registration')}}" class="btn btn-rounded  fs-18 font-w500">Lihat
                                         pendaftar</a>
                                 </div>
                                 <div class="col-xl-5 col-sm-6">
@@ -43,11 +43,11 @@
                                             $bb = 0;
                                         @endphp
                                         @foreach ($viewTotal as $x)
-                                            @if (!$x->status)
+                                            @if (!$x->status_pendaftaran)
                                                 @php
                                                     $aa = $x->jumlah;
                                                 @endphp
-                                            @elseif ($x->status )
+                                            @elseif ($x->status_pendaftaran )
                                                 @php
                                                     $bb = $x->jumlah;
                                                 @endphp
@@ -202,7 +202,7 @@
                                                             <h6 class="mb-0"><strong
                                                                     class="text-primary">
                                                                     #{{ $x->user->name }}
-                                                                </strong>,{{ $item->status }}.
+                                                                </strong>,{{ $item->status_pendaftaran }}.
                                                             </h6>
                                                         </a>
                                                     @elseif ($x->user_id != $item->user_id && $no == 1)
@@ -211,7 +211,7 @@
                                                         <a class="timeline-panel text-muted" href="#">
                                                             <span>{{ $item->tgl_update }}</span>
                                                             <h6 class="mb-0">#{{ $item->user->name }},
-                                                                {{ $item->status }}.</h6>
+                                                                {{ $item->status_pendaftaran }}.</h6>
                                                         </a>
                                                     @endif
                                                     @php
@@ -264,13 +264,13 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                @if ($x->status)
+                                                @if ($x->status_pendaftaran)
                                                     <span class="badge badge-success">Terverifikasi<span
                                                             class="ms-1 fa fa-check"></span>
-                                                    @elseif($x->status == false)
+                                                    @elseif($x->status_pendaftaran == false)
                                                         <span class="badge badge-warning">Belum Terverifikasi<span
                                                                 class="ms-1 fas fa-stream"></span>
-                                                        @elseif($x->status == null)
+                                                        @elseif($x->status_pendaftaran == null)
                                                             <span class="badge badge-info">Tidak Sesuai<span
                                                                     class="ms-1 fa fa-ban"></span>
                                                             @else
