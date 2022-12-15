@@ -501,14 +501,16 @@
 		 
 	 }
 	 var columnChart = function(){
-		var pr1=document.getElementById("prodi1").innerHTML;
-		var pr2=document.getElementById("prodi2").innerHTML;
-		var pr3=document.getElementById("prodi3").innerHTML;
-		var pr4=document.getElementById("prodi4").innerHTML;
 		var options = {
 			series: [{
-				name: 'Jumlah Pendaftar',
-				data: [pr1, pr2, pr3, pr4]
+				name: 'Aplication Sent',
+				data: [40, 55, 15,55]
+			}, {
+				name: 'Appllication Answered',
+				data: [40, 55, 35,55]
+			}, {
+				name: 'Hired',
+				data: [40, 17, 55, 55]
 			}],
 			chart: {
 				type: 'bar',
@@ -544,7 +546,7 @@
 				},
 				
 			},
-			colors:['#eb8153'],
+			colors:['#ECECEC', '#e66025', '#e66025'],
 			xaxis: {
 				show: false,
 				axisBorder: {
@@ -568,7 +570,7 @@
 					show: false,
 				},
 				
-				categories: ['Teknologi Mesin', 'Teknologi Mekatronika', 'Teknologi Listrik','Teknologi Rekayasa Perangkat Lunak'],
+				categories: ['Sun', 'Mon', 'Tue'],
 			},
 			yaxis: {
 				show: false
@@ -746,7 +748,7 @@
 			
 		},
 		
-		colors:['#eb8153'],
+		colors:['#0E8A74'],
 		dataLabels: {
 		  enabled: false,
 		},
@@ -829,7 +831,7 @@
 		},
 		fill: {
 		  opacity: 1,
-		  colors:'#eb8153'
+		  colors:'#FB3E7A'
 		},
 		tooltip: {
 			enabled:false,
@@ -849,7 +851,10 @@
 	 
 	}
 	var progresspendaftaran=document.getElementById("progressnya").innerHTML;
-	
+
+	if(progresspendaftaran == null || progresspendaftaran== '' || progresspendaftaran == undefined){
+		progresspendaftaran = 0;
+	}
 	var redial = function(){
 		  var options = {
           series: [parseInt(progresspendaftaran)],
@@ -888,7 +893,7 @@
               value: {
                 offsetY: 5,
                 fontSize: '22px',
-				color:'#eb8153',
+				color:'#e66025',
 				fontWeight:700,
               }
             }
@@ -915,7 +920,7 @@
         }, */
         fill: {
           type: 'gradient',
-		  colors:'#eb8153',
+		  colors:'#FFA26D',
           gradient: {
               shade: 'white',
               shadeIntensity: 0.15,

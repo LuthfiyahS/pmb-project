@@ -55,4 +55,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(ProfileUsers::class);
     }
+
+    public function timeline(){
+        return $this->hasMany(Timeline::class);
+    }
 }

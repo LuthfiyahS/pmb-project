@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\ProfileUsers;
+use App\Models\Timeline;
 use DateTime;
 
 class UserSeeder extends Seeder
@@ -32,6 +33,13 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'created_at' => now()
         ]);
+        Timeline::create([
+            'user_id' => 1,
+            'status' => "Bergabung",
+            'pesan' => 'Membuat Akun baru',
+            'tgl_update' => now(),
+            'created_at' => now()
+        ]);
 
         User::create([
             'name' => 'Iam User',
@@ -46,6 +54,13 @@ class UserSeeder extends Seeder
             'user_id' => 2,
             'nama' => 'Iam User',
             'email' => 'user@gmail.com',
+            'created_at' => now()
+        ]);
+        Timeline::create([
+            'user_id' => 2,
+            'status' => "Bergabung",
+            'pesan' => 'Membuat Akun baru',
+            'tgl_update' => now(),
             'created_at' => now()
         ]);
 
