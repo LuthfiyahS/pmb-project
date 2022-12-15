@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SekolahController;
+use App\Http\Controllers\ProgramStudiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +37,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-user/{user_id}', [UserController::class, 'updateuser']);
     Route::get('/data-user/delete/{user_id}', [UserController::class, 'hapususer']);
 
+    //sekolah
+    Route::get('/data-sekolah', [SekolahController::class, 'datasekolah'])->name('data-sekolah');
+    Route::post('/save-school', [SekolahController::class, 'simpansekolah']);
+    Route::post('/update-school/{NPSN}', [SekolahController::class, 'updatesekolah']);
+    Route::get('/delete-school/{NPSN}', [SekolahController::class, 'hapussekolah']);
+
+    Route::get('/data-prodi', [ProgramStudiController::class, 'dataprodi'])->name('data-prodi');
+    Route::post('/save-prodi', [ProgramStudiController::class, 'simpanprodi']);
+    Route::post('/update-prodi/{id_prodi}', [ProgramStudiController::class, 'updateprodi']);
+    Route::get('/delete-prodi/{id_prodi}', [ProgramStudiController::class, 'hapusprodi']);
 });
 
 require __DIR__.'/auth.php';

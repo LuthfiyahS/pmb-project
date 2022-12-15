@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ProgramStudi extends Model
 {
@@ -16,9 +17,9 @@ class ProgramStudi extends Model
 
     public static function id()
     {
-    	$kode = DB::table('program_studi')->max('id_prodi');
+    	$kode = DB::table('program_studi')->max('id');
     	$addNol = '';
-    	$kode = str_replace("PR", "", $kode);
+    	$kode = str_replace("PRD", "", $kode);
     	$kode = (int) $kode + 1;
         $incrementKode = $kode;
 
@@ -27,7 +28,7 @@ class ProgramStudi extends Model
     	} elseif (strlen($kode) == 2) {
     		$addNol = "0";
         }
-    	$kodeBaru = "PR".$addNol.$incrementKode;
+    	$kodeBaru = "PRD".$addNol.$incrementKode;
     	return $kodeBaru;
     }
 }
