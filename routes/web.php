@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\JadwalKegiatanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,10 +44,17 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-school/{NPSN}', [SekolahController::class, 'updatesekolah']);
     Route::get('/delete-school/{NPSN}', [SekolahController::class, 'hapussekolah']);
 
+    //prodi
     Route::get('/data-prodi', [ProgramStudiController::class, 'dataprodi'])->name('data-prodi');
     Route::post('/save-prodi', [ProgramStudiController::class, 'simpanprodi']);
     Route::post('/update-prodi/{id_prodi}', [ProgramStudiController::class, 'updateprodi']);
     Route::get('/delete-prodi/{id_prodi}', [ProgramStudiController::class, 'hapusprodi']);
+
+    //jadwal
+    Route::get('/data-jadwal', [JadwalKegiatanController::class, 'datajadwal'])->name('data-jadwal');
+    Route::post('/save-jadwal', [JadwalKegiatanController::class, 'simpanjadwal']);
+    Route::post('/update-jadwal/{id}', [JadwalKegiatanController::class, 'updatejadwal']);
+    Route::get('/delete-jadwal/{id}', [JadwalKegiatanController::class, 'hapusjadwal']);
 });
 
 require __DIR__.'/auth.php';

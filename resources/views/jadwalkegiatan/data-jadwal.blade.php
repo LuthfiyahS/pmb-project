@@ -12,7 +12,7 @@
 @endsection
 
 @section('menunya')
-    Program Studi
+    Jadwal Kegiatan
 @endsection
 
 @section('menu')
@@ -20,7 +20,7 @@
         <ul class="metismenu" id="menu">
             <li><a href="index">
                     <i class="fas fa-home"></i>
-                    <span class="nav-text">Beranda</span>
+                    <span class="nav-text">Jadwal Kegiatan</span>
                 </a>
             </li>
             @if (auth()->user()->role == 'Administrator')
@@ -44,14 +44,15 @@
                         <li><a href="data-payment">Pembayaran</a></li>
                     </ul>
                 </li>
-                <li><a href="data-announcement" aria-expanded="false">
-                        <i class="fa fa-file"></i>
-                        <span class="nav-text">Pengumuman</span>
-                    </a>
-                </li>
+                
+            <li><a href="data-announcement" aria-expanded="false">
+                <i class="fa fa-file"></i>
+                <span class="nav-text">Pengumuman</span>
+            </a>
+        </li>
             @else
                 <li><a href="data-registration" aria-expanded="false">
-                    <i class="fa fa-database"></i>
+                            <i class="fa fa-database"></i>
                         <span class="nav-text">Pendaftaran</span>
                     </a>
                 </li>
@@ -61,51 +62,69 @@
 @endsection
 
 @section('content')
-@error('success')
-<div class="alert alert-success alert-dismissible fade show">
-    <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>	
-    <strong>Sukses!</strong> Data berhasil disimpan.
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
-    </button>
-</div>
-@enderror
+@if (auth()->user()->role == 'Administrator')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Data Program Studi</h4>
+                    <h4 class="card-title">Jadwal Kegiatan Pendaftaran</h4>
 
                     <!-- center modal -->
                     <div>
-                        <button class="btn btn-info waves-effect waves-light mb-4" onclick="printDiv('cetak')"><i
-                                class="fa fa-print"> </i></button>
+                        <button class="btn btn-info waves-effect waves-light mb-4" onclick="printDiv('cetak')"><i class="fa fa-print"> </i></button>
                         <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target=".modal"
-                            style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Tambah Program Studi</button>
+                        style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Tambah Kegiatan</button>
                     </div>
+                    
 
                     <div class="modal fade modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Tambah Program Studi</h5>
+                                    <h5 class="modal-title">Tambah Kegiatan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="save-prodi" method="POST" enctype="multipart/form-data">
+                                    <form action="save-jadwal" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
                                         <div class="form-group">
-                                            <label for="iduser">Nama Program Studi</label>
+                                            <label for="iduser">Nama Kegiatan</label>
                                             <input type="text" class="form-control" id="nama"
-                                                placeholder="Enter Study Program Name" name="nama" required>
-
+                                                        placeholder="Masukkan nama kegiatan: Gelombang 1" name="nama" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="iduser">Jenis Kegiatan</label>
+                                            
+                                            <input class="form-control" list="datalistOptionsJenis"
+                                            id="exampleDataList" placeholder="Pilih Jenis Kegiatan" name="jenis"
+                                            value="{{ old('jenis') }}">
+                                        <datalist id="datalistOptionsJenis">
+                                            <option value="Pendaftaran">Pendaftaran</option>
+                                            <option value="Tes Potensi akademik dan Wawancara">Tes Potensi akademik dan Wawancara</option>
+                                            <option value="Pengumuman">Pengumuman</option>
+                                            <option value="Registrasi Ulang">Registrasi Ulang</option>
+                                        </datalist>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-xl-6 col-md-6">
+                                                    <label for="iduser">Tanggal Mulai</label>
+                                                    <input type="date" class="form-control" name="mulai" required>
+                                                </div>
+                                                <div class="col-lg-6 col-xl-6 col-md-6">
+                                                    <label for="iduser">Tanggal Selesai</label>
+                                                    <input type="date" class="form-control" name="selesai" required>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="modal-footer border-top-0 d-flex">
                                             <button type="button" class="btn btn-danger light"
                                                 data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" name="add" class="btn btn-primary">Tambah Data</button>
+                                            <button type="submit" name="add" class="btn btn-primary">Tambahkan Data</button>
                                         </div>
                                     </form>
                                 </div>
@@ -121,18 +140,41 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>ID Program Studi</th>
-                                    <th>Nama Program Studi</th>
+                                    <th>Nama Kegiatan</th>
+                                    <th>Jenis Kegiatan</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Berakhir</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
                                 @foreach ($viewData as $x)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $x->id_prodi }}</td>
-                                        <td>{{ $x->nama_prodi }}</td>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $x->nama_kegiatan }}</td>
+                                        <td>{{ $x->jenis_kegiatan }}</td>
+                                        <td>{{ $x->tgl_mulai }}</td>
+                                        <td>{{ $x->tgl_akhir }}</td>
+                                        <td>
+                                            @if( $x->tgl_mulai <= $datenow && $x->tgl_akhir > $datenow)    
+                                                <span class="badge light badge-primary">
+                                                    <i class="fa fa-circle text-primary me-1"></i>
+                                                    Berjalan
+                                                </span>
+                                            @elseif( $x->tgl_mulai < $datenow )    
+                                                <span class="badge light badge-danger">
+                                                    <i class="fa fa-circle text-danger me-1"></i>
+                                                    Berakhir
+                                                </span>
+                                            @else
+                                                <span class="badge light badge-info">
+                                                    <i class="fa fa-circle text-info me-1"></i>
+                                                    Akan Berjalan
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="d-flex">
                                                 <a class="btn btn-primary shadow btn-xs sharp me-1" title="Edit"
@@ -140,8 +182,8 @@
                                                         class="fa fa-pencil-alt"></i></a>
                                                 <a class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target=".delete{{ $x->id }}"></i></a>
-                                                <div class="modal fade delete{{ $x->id }}" tabindex="-1"
+                                                        data-bs-target=".delete{{  $x->id }}"></i></a>
+                                                <div class="modal fade delete{{  $x->id }}" tabindex="-1"
                                                     role="dialog" aria-hidden="true">
                                                     <div class="modal-dialog modal-sm">
                                                         <div class="modal-content">
@@ -152,13 +194,12 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body text-center"><i
-                                                                    class="fa fa-trash"></i><br> Apakah anda yakin ingin
-                                                                menghapus data ini?<br> {{ $x->nama_prodi }}
+                                                                    class="fa fa-trash"></i><br>  Anda yakin ingin menghapus kegiatan ini?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-danger light"
                                                                     data-bs-dismiss="modal">Batalkan</button>
-                                                                <a href="delete-prodi/{{ $x->id }}">
+                                                                <a href="delete-jadwal/{{ $x->id }}">
                                                                     <button type="submit" class="btn btn-danger shadow">
                                                                         Ya, Hapus Data!
                                                                     </button></a>
@@ -176,34 +217,57 @@
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Sunting Program Studi</h5>
+                                                    <h5 class="modal-title">Sunting Sekolah</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close">
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="update-prodi/{{ $x->id }}" method="POST"
+                                                    <form action="update-jadwal/{{ $x->id }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                                        <input type="hidden" name="id" value="{{ $x->id }}">
+                                                        
                                                         <div class="form-group">
-                                                            <input type="hidden" name="id" id="nama" class="form-control"
-                                                                value="{{ $x->id }}">
+                                                            <label for="iduser">Nama Kegiatan</label>
+                                                            <input type="text" class="form-control" id="nama"
+                                                                        placeholder="Masukkan nama kegiatan: Gelombang 1" name="nama" value="{{ $x->nama_kegiatan }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="iduser">Jenis Kegiatan</label>
+                                                            
+                                                            <input class="form-control" list="datalistOptionsJenis"
+                                                            id="exampleDataList" placeholder="Pilih Jenis Kegiatan" name="jenis"
+                                                            value="{{ $x->jenis_kegiatan }}">
+                                                        <datalist id="datalistOptionsJenis">
+                                                            <option value="Pendaftaran">Pendaftaran</option>
+                                                            <option value="Tes Potensi akademik dan Wawancara">Tes Potensi akademik dan Wawancara</option>
+                                                            <option value="Pengumuman">Pengumuman</option>
+                                                            <option value="Registrasi Ulang">Registrasi Ulang</option>
+                                                        </datalist>
+                                                        </div>
+                                                        
+
+                                                        
+                                                        
+                                                        <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-xl-12">
-                                                                    <label for="iduser">Nama Program Studi</label>
-                                                                    <input type="text" class="form-control" id="nama"
-                                                                        value="{{ $x->nama_prodi }}"
-                                                                        placeholder="Enter Study Program Name" name="nama"
-                                                                        required>
+                                                                <div class="col-lg-6 col-xl-6 col-md-6">
+                                                                    <label for="iduser">Tanggal Mulai</label>
+                                                                    <input type="date" class="form-control" name="mulai" value="{{$x->tgl_mulai }}"  required>
+                                                                </div>
+                                                                <div class="col-lg-6 col-xl-6 col-md-6">
+                                                                    <label for="iduser">Tanggal Selesai</label>
+                                                                    <input type="date" class="form-control" name="selesai" value="{{ $x->tgl_akhir }}" required>
                                                                 </div>
                                                             </div>
+                                                            
                                                         </div>
                                                         <div class="modal-footer border-top-0 d-flex">
                                                             <button type="button" class="btn btn-danger light"
                                                                 data-bs-dismiss="modal">Tutup</button>
-                                                            <button type="submit" name="add"
-                                                                class="btn btn-primary">Perbaharui
+                                                            <button type="submit" name="add" class="btn btn-primary">Perbaharui
                                                                 Data</button>
                                                         </div>
                                                     </form>
@@ -219,6 +283,7 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
 
 @section('footer')
