@@ -29,11 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');    
 
     //user/pengguna
-    Route::get('/data-user', [UserController::class, 'datauser']);
+    Route::get('/data-user', [UserController::class, 'datauser'])->name('data-user');
     Route::post('/save-user', [UserController::class, 'simpanuser']);
-    Route::get('/edit-user/{user_id}', [UserController::class, 'edituser']);
+    Route::get('/data-user/edit/{user_id}', [UserController::class, 'edituser']);
     Route::post('/update-user/{user_id}', [UserController::class, 'updateuser']);
-    Route::get('/delete-user/{user_id}', [UserController::class, 'hapususer']);
+    Route::get('/data-user/delete/{user_id}', [UserController::class, 'hapususer']);
 
 });
 

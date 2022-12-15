@@ -28,7 +28,7 @@ class CreateProfileUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('intagram')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('whatsapp')->nullable();
             $table->timestamps();
         });

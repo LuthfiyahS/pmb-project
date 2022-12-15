@@ -80,7 +80,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index" class="brand-logo">
+            <a href="dashboard" class="brand-logo">
                 <img alt="image" width="25" src="{{ asset('sipenmaru/images/logo.png') }}">
                 <div class="brand-title">
                     <h2 class="">PMB PEI</h2>

@@ -18,7 +18,7 @@ class CreateTimelinesTable extends Migration
             $table->string('user_id');
             $table->string('status');
             $table->string('pesan');
-            $table->date('tgl_update');
+            $table->date('tgl_update')->default(now());
             $table->timestamps();
         });
     }

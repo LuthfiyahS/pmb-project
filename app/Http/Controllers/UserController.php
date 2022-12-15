@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\ProfileUsers;
 use App\Models\Timeline;
+use File;
+use Alert;
 
 class UserController extends Controller
 {
@@ -21,7 +24,10 @@ class UserController extends Controller
             if (session('error')) {
                 Alert::error(session('error'));
             }
-
+            
+            if (session('warning')) {
+                Alert::warning(session('warning'));
+            }
             return $next($request);
         });
     }
@@ -39,39 +45,56 @@ class UserController extends Controller
         //return redirect('/data-user')->with('berhasil','data berhasil disimpanI');
     try{
         $a->password = Hash::make($a->password);
-        $usersid=ProfileUsers::id();
+        $checkuser = User::where('email',$a->email)->first();
+        if($checkuser){
+            return redirect()->back()->with('warning', 'Email Telah Terdaftar!');
+        }
         User::create([
             'name' => $a->nama,
             'email' => $a->email,
-            'password' => $a->password,
+            'password' => Hash::make($a->password),
             'role' => $a->level,
-            'user_id'=>$usersid,
+            'created_at' => now()
         ]);
+        $usersid  = User::orderBy('id', 'DESC')->first();
     	$file = $a->file('foto');
             if(file_exists($file)){
                 $nama_file = time() . "-" . $file->getClientOriginalName();
                 $namaFolder = 'foto profil';
                 $file->move($namaFolder,$nama_file);
                 $pathFoto = $namaFolder."/".$nama_file;
+
+                ProfileUsers::create([
+                    'user_id' => $usersid->id,
+                    'nama' => $a->nama,
+                    'email' => $a->email,
+                    'tanggal_lahir' => "2000-01-01",
+                    'gender' => $a->gender,
+                    'no_hp' => $a->nohp,
+                    'foto' => $pathFoto
+                ]);
             } else {
-                $pathFoto = $a->pathFoto;
+                ProfileUsers::create([
+                    'user_id' => $usersid->id,
+                    'nama' => $a->nama,
+                    'email' => $a->email,
+                    'tanggal_lahir' => "2000-01-01",
+                    'gender' => $a->gender,
+                    'no_hp' => $a->nohp,
+                ]);
             }
-        ProfileUsers::create([
-            'user_id' => $usersid,
-            'nama' => $a->nama,
-            'email' => $a->email,
-            'tanggal_lahir' => "2000-01-01",
-            'gender' => $a->gender,
-            'no_hp' => $a->nohp,
-            'foto' => $pathFoto
-        ]);
+        
         Timeline::create([
-            'user_id' => $a->userid,
-            'status' => "Membuat user baru"
+            'user_id' => $usersid->id,
+            'status' => "Bergabung",
+            'pesan' => 'Membuat Akun baru',
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-user')->with('success', 'Data Tersimpan!');
     }catch (\Exception $e){
-            return redirect()->back()->with('error', 'Data Tidak Tersimpan!');
+        echo $e;
+        //return redirect()->back()->with('error', 'Data Tidak Tersimpan!');
     }
     }
 
@@ -83,7 +106,7 @@ class UserController extends Controller
     }
 
 
-    public function updateuser($nim,Request $a)
+    public function updateuser($id,Request $a)
     {
      try{
         $dataUser = ProfileUsers::all();
@@ -115,7 +138,7 @@ class UserController extends Controller
                 $pathFoto = $a->pathFoto;
             }
 
-            ProfileUsers::where("user_id", $a->id)->update([
+            ProfileUsers::where("id", $id)->update([
                 'foto' => $pathFoto,
                 'tempat_lahir' => $a->tempat,
                 'tanggal_lahir' => $a->tanggal,
@@ -125,12 +148,16 @@ class UserController extends Controller
                 'instagram' => $a->ig
             ]);
             Timeline::create([
-                'user_id' => $a->userid,
-                'status' => "Mengedit User"
+                'user_id' => $id,
+                'status' => "Mengedit User",
+                'pesan' => 'Membuat Akun baru',
+                'tgl_update' => now(),
+                'created_at' => now()
             ]);
             return redirect('/data-user')->with("success",'Data Berhasil Diubah');
         }catch (\Exception $e){
-            return redirect()->back()->with('error', 'Data Tidak Berhasil Diubah!');
+            echo $e;
+            //return redirect()->back()->with('error', 'Data Tidak Berhasil Diubah!');
         }
     }
 
@@ -139,7 +166,7 @@ class UserController extends Controller
     try{
         $dataProfileUsers = ProfileUsers::find($user_id);
         $id=$dataProfileUsers['Email'];
-        $dataUser = User::where('email',$id);
+        $dataUser = User::find($user_id);
         $dataProfileUsers->delete();
         $dataUser->delete();
         return redirect('/data-user')->with("success",'Data Berhasil Dihapus');

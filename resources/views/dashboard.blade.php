@@ -19,7 +19,7 @@
 @section('menu')
     @auth
         <ul class="metismenu" id="menu">
-            <li class="mm-active"><a href="index">
+            <li class="mm-active"><a href="dashboard">
                     <i class="fas fa-home"></i>
                     <span class="nav-text">Beranda</span>
                 </a>
@@ -51,21 +51,11 @@
                     </a>
                 </li>
             @else
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($viewDataUser as $x)
-                    @if ($no == 1)
-                        <li><a href="data-registration" aria-expanded="false">
-                                <i class="fa fa-database"></i>
-                                <span class="nav-text">Pendaftaran</span>
-                            </a>
-                        </li>
-                    @endif
-                    @php
-                        $no++;
-                    @endphp
-                @endforeach
+                <li><a href="data-registration" aria-expanded="false">
+                    <i class="fa fa-database"></i>
+                        <span class="nav-text">Pendaftaran</span>
+                    </a>
+                </li>
             @endif
             <!--<li><a href="#" aria-expanded="false">
                     <i class="fa fa-download"></i>

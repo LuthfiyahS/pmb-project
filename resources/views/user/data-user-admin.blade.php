@@ -18,9 +18,9 @@
 @section('menu')
     @auth
         <ul class="metismenu" id="menu">
-            <li><a href="index">
+            <li><a href="dashboard">
                     <i class="fas fa-home"></i>
-                    <span class="nav-text">Beranda</span>
+                    <span class="nav-text">Pengguna</span>
                 </a>
             </li>
             @if (auth()->user()->role == 'Administrator')
@@ -49,21 +49,11 @@
                     </a>
                 </li>
             @else
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($dataUser as $x)
-                    @if ($no == 1)
-                        <li><a href="data-registration" aria-expanded="false">
-                                <i class="fa fa-database"></i>
-                                <span class="nav-text">Pendaftaran</span>
-                            </a>
-                        </li>
-                    @endif
-                    @php
-                        $no++;
-                    @endphp
-                @endforeach
+               <li><a href="data-registration" aria-expanded="false">
+                    <i class="fa fa-database"></i>
+                        <span class="nav-text">Pendaftaran</span>
+                    </a>
+                </li>
             @endif
         </ul>
     @endauth
@@ -154,7 +144,7 @@
                                                         <span class="input-group-text">Upload</span>
                                                         <div class="form-file">
                                                             <input type="file" class="form-file-input form-control"
-                                                                name="foto" required>
+                                                                name="foto">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -213,11 +203,11 @@
                                         <td>
                                             <div class="d-flex">
                                                 <a class="btn btn-light shadow btn-xs sharp me-1" title="Data Registration"
-                                                    href="edit-user/{{ $x->id }}"><i class="fa fa-file-alt"></i></a>
+                                                    href="data-user/edit/{{ $x->id }}"><i class="fa fa-file-alt"></i></a>
                                                 <a class="btn btn-primary shadow btn-xs sharp me-1" title="Edit"
-                                                    href="edit-user/{{ $x->id }}"><i
+                                                    href="data-user/edit/{{ $x->id }}"><i
                                                         class="fa fa-pencil-alt"></i></a>
-                                                <a href="delete-user/{{ $x->id }}"
+                                                <a href="data-user/delete/{{ $x->id }}"
                                                     class="btn btn-danger shadow btn-xs sharp"><i
                                                         class="fa fa-trash"></i></a>
                                                     <div class="modal fade delete{{ $x->id }}" tabindex="-1"
