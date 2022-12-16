@@ -116,7 +116,7 @@
                                                     <label for="iduser">Jenis Kelamin</label>
                                                     <select class="default-select form-control wide" title="Jenis Kelamin"
                                                         name="gender" required>
-                                                        <option value="-">Pilih Jenis Kelamin</option>
+                                                        <option value="Laki-laki" disabled>Pilih Jenis Kelamin</option>
                                                         <option value="Perempuan">Female</option>
                                                         <option value="Laki-laki">Male</option>
                                                     </select>
@@ -132,9 +132,9 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <label for="iduser">Role Pengguna</label>
-                                                    <select class="default-select form-control wide" title="Country"
+                                                    <select class="default-select form-control wide" title="Country" aria-placeholder="Pilih role"
                                                         name="level" required>
-                                                        <option value="-">Pilih Role</option>
+                                                        <option value="Calon Mahasiswa" disabled>Pilih Role</option>
                                                         <option value="Administrator">Administrator</option>
                                                         <option value="Calon Mahasiswa">Calon Mahasiswa</option>
                                                     </select>
