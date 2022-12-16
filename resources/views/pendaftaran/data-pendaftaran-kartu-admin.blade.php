@@ -50,21 +50,11 @@
         </a>
     </li>
     @else
-        @php
-            $no = 1;
-        @endphp
-        @foreach ($viewDataUser as $x)
-            @if ($no == 1)
-                    <li><a href="../../data-registration" aria-expanded="false">
-                            <i class="fa fa-database"></i>
-                            <span class="nav-text">Pendaftaran</span>
-                        </a>
-                    </li>
-            @endif
-            @php
-                $no++;
-            @endphp
-        @endforeach
+    <li class="mm-active"><a href="{{route('data-registration')}}" aria-expanded="false">
+        <i class="fa fa-database"></i>
+            <span class="nav-text">Pendaftaran</span>
+        </a>
+    </li>
     @endif
 </ul>
 @endauth

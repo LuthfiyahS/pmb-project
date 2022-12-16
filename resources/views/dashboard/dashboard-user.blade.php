@@ -52,12 +52,12 @@
                                 <i class="la la-users"></i>
                             </span>
                             <div class="media-body text-white">
-                                <p class="mb-1">Total Students</p>
+                                <p class="mb-1">Total Pendaftar</p>
                                 <h3 class="text-white">3280</h3>
                                 <div class="progress mb-2 bg-secondary">
                                     <div class="progress-bar progress-animated bg-light" style="width: 80%"></div>
                                 </div>
-                                <small>80% Increase in 20 Days</small>
+                                <small>ditahun ini</small>
                             </div>
                         </div>
                     </div>
@@ -73,12 +73,12 @@
                                 <i class="la la-user"></i>
                             </span>
                             <div class="media-body text-white">
-                                <p class="mb-1">New Students</p>
+                                <p class="mb-1">Pendaftar Baru</p>
                                 <h3 class="text-white">245</h3>
                                 <div class="progress mb-2 bg-primary">
                                     <div class="progress-bar progress-animated bg-light" style="width: 50%"></div>
                                 </div>
-                                <small>50% Increase in 25 Days</small>
+                                <small>ditahun ini</small>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,22 @@
 </div>
 </div>
 <div class="row">
-    <div class="col-xl-3 col-lg-6 col-sm-6" style="padding: 0px">
+    @foreach ($prodi as $x)
+        <div class="col-xl-3 col-lg-6 col-sm-6" style="padding: 0px">
+            <div class="card" style="border-radius: 0%;">
+                    <div class="new-arrival-product">
+                        <div class="new-arrivals-img-contnent">
+                            <img class="img-fluid" src="{{ asset($x->foto_prodi) }}" alt="">
+                            <div class="carousel-caption d-none d-md-block">
+                                <a href="ecom-product-detail.html"><h4 style="color: whitesmoke">{{$x->nama_prodi}}</h4></a>
+                                <p>{{$x->jenjang_prodi}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    @endforeach
+    {{-- <div class="col-xl-3 col-lg-6 col-sm-6" style="padding: 0px">
         <div class="card" style="border-radius: 0%;">
                 <div class="new-arrival-product">
                     <div class="new-arrivals-img-contnent">
@@ -142,7 +157,7 @@
                     </div>
                 </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <div class="row">
@@ -182,135 +197,57 @@
                                     <!--Product details-->
                                     <div class="new-arrival-content pr">
                                         <h3>Ketentuan Umum</h3>
-                                        <p>Availability: <span class="item"> In stock <i class="fa fa-shopping-basket"></i></span>
-                                        </p>
-                                        <p>Product code: <span class="item">0405689</span> </p>
-                                        <p>Brand: <span class="item">Lee</span></p>
-                                        <p>Product tags:&nbsp;&nbsp;
-                                            <span class="badge badge-success light">bags</span>
-                                            <span class="badge badge-success light">clothes</span>
-                                            <span class="badge badge-success light">shoes</span>
-                                            <span class="badge badge-success light">dresses</span>
-                                        </p>
-                                        <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-                                            If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
-                                        
-
-
-                                            <div class="custom-tab-1">
+                                        <div class="custom-tab-1">
                                             <ul class="nav nav-tabs">
                                                 <li class="nav-item"><a href="#jpk" data-bs-toggle="tab"
                                                         class="nav-link active show">Jalur Prestasi Khusus</a>
                                                 </li>
-                                                <li class="nav-item"><a href="#profile-settings" data-bs-toggle="tab"
+                                                <li class="nav-item"><a href="#reguler" data-bs-toggle="tab"
                                                         class="nav-link">Jalur Reguler</a>
                                                 </li>
-                                            </li>
+                                                <li class="nav-item"><a href="#karyawan" data-bs-toggle="tab"
+                                                    class="nav-link">Jalur Karyawan</a>
+                                                </li>
                                             </ul>
-                                            <div class="profile-tab">
                                             <div class="tab-content">
-                                                <div id="jpk" class="tab-pane fade active show">
+                                                <div id="about-me" class="tab-pane fade active show">
                                                     <div class="profile-personal-info">
-                                                        yaaaa
-                                                    </div>
-                                                    <div class="profile-about-me">
-                                                        <div class="pt-4 border-bottom-1 pb-3">
-                                                            <h4 class="text-primary">JPK</h4>
-                                                        </div>
-                                                        <div class="row mb-2">
-                                                            <div class="col-sm-6 col-6">
-                                                                <h5 class="f-w-500"><i class="fas fa-envelope"></i>
-                                                                    {{ auth()->user()->email }}
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="profile-about-me">
-                                                        <div class="pt-4 border-bottom-1 pb-3">
-                                                            <h4 class="text-primary">Sosial Media</h4>
-                                                        </div>
-                                                        <div class="row mb-2">
-                                                            <div class="col-sm-3 col-5">
-                                                                <h2>
-                                                                    sa
-                                                                </h2>
-                                                            </div>
-                                                            <div class="col-sm-9 col-7"><span>
-                
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                                                        <br>
+                                                        <h4 class="text-primary mb-4">Persyaratan</h4>
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">Siswa kelas XII SMA/SMK/MA/Sederajat lulus pada tahun berjalan.</li>
+                                                            <li class="list-inline-item">Mengisi formulir pendaftaran.</li>
+                                                            <li class="list-inline-item">Melampirkan Surat Penghasilan/Slip Gaji Orang Tua.</li>
+                                                            <li class="list-inline-item">Sehat jasmani dan rohani serta tidak buta warna dilengkapi dengan Surat Keterangan Sehat.</li>
+                                                            <li class="list-inline-item">Melampirkan pasfoto 3×4 dan 4×6 (@ 1 lembar)</li>
+                                                            <li class="list-inline-item">Melampirkan fotokopi dokumen (Rapor, Akta Kelahiran, Sertifikat Prestasi <small>(jika ada)</small> )</li>
+                                                        </ul>        
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="tab-content">
-                                                <div id="jpk" class="tab-pane fade active show">
-                                                    <div class="profile-about-me">
-                                                        <div class="pt-4 border-bottom-1 pb-3">
-                                                            <h4 class="text-primary">Jalur Reguler</h4>
-                                                        </div>
-                                                        <div class="row mb-2">
-                                                            <div class="col-sm-6 col-6">
-                                                                <h5 class="f-w-500"><i class="fas fa-envelope"></i>
-                                                                    {{ auth()->user()->email }}
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="profile-about-me">
-                                                        <div class="pt-4 border-bottom-1 pb-3">
-                                                            <h4 class="text-primary">Sosial Media</h4>
-                                                        </div>
-                                                        <div class="row mb-2">
-                                                            <div class="col-sm-3 col-5">
-                                                                <h2>
-                                                                    sa
-                                                                </h2>
-                                                            </div>
-                                                            <div class="col-sm-9 col-7"><span>
-                
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div id="reguler" class="tab-pane fade">
+                                                    <br>
+                                                        <h4 class="text-primary mb-4">Persyaratan</h4>
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">Siswa kelas XII SMA/SMK/MA/Sederajat lulus pada tahun berjalan.</li>
+                                                            <li class="list-inline-item">Mengisi formulir pendaftaran.</li>
+                                                            <li class="list-inline-item">Melampirkan Surat Penghasilan/Slip Gaji Orang Tua.</li>
+                                                            <li class="list-inline-item">Sehat jasmani dan rohani serta tidak buta warna dilengkapi dengan Surat Keterangan Sehat.</li>
+                                                            <li class="list-inline-item">Melampirkan pasfoto 3×4 dan 4×6 (@ 1 lembar)</li>
+                                                            <li class="list-inline-item">Melampirkan fotokopi dokumen (Rapor, Akta Kelahiran, Sertifikat Prestasi <small>(jika ada)</small> )</li>
+                                                        </ul>    
                                                 </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="d-flex align-items-end flex-wrap mt-4">
-                                            <div class="filtaring-area me-3">
-                                                <div class="size-filter">
-                                                    <h4 class="m-b-15">Select size</h4>
-                                                    
-                                                    
-                                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" checked="">
-                                                      <label class="btn btn-outline-primary" for="btnradio1">XS</label>
-
-                                                      <input type="radio" class="btn-check" name="btnradio" id="btnradio2">
-                                                      <label class="btn btn-outline-primary" for="btnradio2">SM</label>
-
-                                                      <input type="radio" class="btn-check" name="btnradio" id="btnradio3">
-                                                      <label class="btn btn-outline-primary" for="btnradio3">MD</label>
-                                                      
-                                                      <input type="radio" class="btn-check" name="btnradio" id="btnradio4">
-                                                      <label class="btn btn-outline-primary" for="btnradio4">LG</label>
-                                                      
-                                                      <input type="radio" class="btn-check" name="btnradio" id="btnradio5">
-                                                      <label class="btn btn-outline-primary" for="btnradio5">XL</label>
-                                                    </div>
-                                                    
+                                                <div id="karyawan" class="tab-pane fade">
+                                                    <br>
+                                                        <h4 class="text-primary mb-4">Persyaratan</h4>
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">Siswa kelas XII SMA/SMK/MA/Sederajat lulus pada tahun berjalan.</li>
+                                                            <li class="list-inline-item">Mengisi formulir pendaftaran.</li>
+                                                            <li class="list-inline-item">Melampirkan Surat Penghasilan/Slip Gaji Orang Tua.</li>
+                                                            <li class="list-inline-item">Sehat jasmani dan rohani serta tidak buta warna dilengkapi dengan Surat Keterangan Sehat.</li>
+                                                            <li class="list-inline-item">Melampirkan pasfoto 3×4 dan 4×6 (@ 1 lembar)</li>
+                                                            <li class="list-inline-item">Melampirkan fotokopi dokumen (Rapor, Akta Kelahiran, Sertifikat Prestasi <small>(jika ada)</small> )</li>
+                                                        </ul>    
                                                 </div>
-                                            </div>
-                                            <!--Quantity start-->
-                                            <div class="col-2 px-0  mb-2 me-3">
-                                                <input type="number" name="num" class="form-control input-btn input-number" value="1">
-                                            </div>
-                                            <!--Quanatity End-->
-                                            <div class="shopping-cart  mb-2 me-3">
-                                                <a class="btn btn-primary" href="javascript:void();"><i class="fa fa-shopping-basket me-2"></i>Add
-                                                    to cart</a>
                                             </div>
                                         </div>
                                     </div>

@@ -50,7 +50,7 @@ class DashboardController extends Controller
         ->groupBy('pil1')->get();
         $jmlpengumuman =  Pengumuman::select('hasil_seleksi', DB::raw('count(*) as jumlah'),)
         ->groupBy('hasil_seleksi')->get();
-        $prodi = ProgramStudi::all();
+        $prodi = ProgramStudi::limit(4)->get();
         return view ('dashboard',['timeline' => $timeline,'viewDataUser' => $dataUser,'viewTotal'=>$data,'viewTahunini'=>$dataPendaftar,'pendaftar'=>$pendaftar,'jmlpengumuman'=>$jmlpengumuman,'jmlpendaftar'=>$jmlpendaftar,'jmlpendaftarprodi'=>$jmlpendaftarperprodi,'jmluser'=>$jmluser,'prodi'=>$prodi,'jmlbayar'=>$jmlbayar]);
     }
 }

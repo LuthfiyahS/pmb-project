@@ -50,23 +50,11 @@ Detail Pendaftaran
                     </a>
                 </li>
             @else
-            @foreach ($viewDataUser as $x)
-                    @if (auth()->user()->email == $x->Email)
-                        @if ($x->user_id == $viewData->user_id)
-                            <li><a href="../../registration/{{ $viewData->id_pendaftaran }}" aria-expanded="false">
-                                    <i class="fa fa-database"></i>
-                                    <span class="nav-text">Pendaftaran</span>
-                                </a>
-                            </li>
-                        @else
-                            <li><a href="../../form-registration" aria-expanded="false">
-                                    <i class="fa fa-database"></i>
-                                    <span class="nav-text">Pendaftaran</span>
-                                </a>
-                            </li>
-                        @endif
-                    @endif
-                @endforeach
+                <li class="mm-active"><a href="{{route('data-registration')}}" aria-expanded="false">
+                    <i class="fa fa-database"></i>
+                        <span class="nav-text">Pendaftaran</span>
+                    </a>
+                </li>
             @endif
         </ul>
     @endauth
@@ -99,7 +87,7 @@ Detail Pendaftaran
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
                     </button>
                 </div>
-                @elseif ($viewData->status_pendaftaran=="Terverifikasi")
+                @elseif ($viewData->status_pendaftaran=="Terverifikasi" && $viewDataPembayaran->status !="Gratis" && $viewDataPembayaran->status !="Dibayar")
                 <div class="alert alert-info alert-dismissible fade show">
                     <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                     <strong>Informasi!</strong> Segera lakukan pembayaran.
@@ -107,6 +95,9 @@ Detail Pendaftaran
                     </button>
                 </div>
                 @endif
+                <div class="text-end">
+                    <a href="../../card-registration/{{$viewData->id}}"><button type="button" class="btn btn-primary">Lihat Kartu Pendaftaran </button></a>
+                </div>
                 @endif
 
                 <div class="card card-body">
@@ -117,13 +108,10 @@ Detail Pendaftaran
                             @if ($viewData->status_pendaftaran == "Belum Terverifikasi")
                             <button class="btn btn-warning mb-4" style="margin-bottom: 1rem;" disabled>Belum Terverifikasi</button>
                             @elseif ($viewData->status_pendaftaran == "Terverifikasi")
-                            @foreach ($viewDataPembayaran as $item)
-                                @if ($item->status_pembayaran =="Gratis" && $item->status_pembayaran =="Dibayar")
+                                @if ($viewDataPembayaran->status !="Gratis" && $viewDataPembayaran->status !="Dibayar")
                                 <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target=".upload"
-                                style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Upload Pembayaran</button>
-                                    
-                            @endif
-                            @endforeach
+                                style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Upload Pembayaran  </button>    
+                                @endif
                             
                             <button class="btn btn-success mb-4" style="margin-bottom: 1rem;" disabled>Terverifikasi</button>
                             @elseif ($viewData->status_pendaftaran == "Selesai")
@@ -145,7 +133,7 @@ Detail Pendaftaran
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="../upload-payment" method="POST" enctype="multipart/form-data">
+                                    <form action="{{route('upload-payment')}}" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                         <div class="form-group">

@@ -38,22 +38,48 @@ class ProgramStudiController extends Controller
     public function simpanprodi(Request $a)
     {
         try{
+
             $kode=ProgramStudi::id();
+
+            $fileft = $a->file('foto');
+            if(file_exists($fileft)){
+                $nama_fileft = "Prodi".time() . "-" . $fileft->getClientOriginalName();
+                $namaFolderft = 'foto prodi';
+                $fileft->move($namaFolderft,$nama_fileft);
+                $path = $namaFolderft."/".$nama_fileft;
+            } else {
+                $path = null;
+            }
+            
             ProgramStudi::create([
                 'id_prodi' => $kode,
-                'nama_prodi' => $a->nama
+                'nama_prodi' => $a->nama,
+                'jenjang_prodi' => $a->jenjang,
+                'foto_prodi' => $path,
         ]);
             return redirect('/data-prodi')->with('success', 'Data Tersimpan!!');
         } catch (\Exception $e){
-            return redirect()->back()->with('error', 'Data Tidak Berhasil Disimpan!');
+            echo $e;
+            //return redirect()->back()->with('error', 'Data Tidak Berhasil Disimpan!');
         }
     }
 
     public function updateprodi(Request $a, $id_prodi){
         //$dataUser = Pengguna::all();
         try{
+            $fileft = $a->file('foto');
+            if(file_exists($fileft)){
+                $nama_fileft = "Prodi".time() . "-" . $fileft->getClientOriginalName();
+                $namaFolderft = 'foto prodi';
+                $fileft->move($namaFolderft,$nama_fileft);
+                $path = $namaFolderft."/".$nama_fileft;
+            } else {
+                $path = $a->pathnya;
+            }
             ProgramStudi::where("id", $id_prodi)->update([
-                'nama_prodi' => $a->nama
+                'nama_prodi' => $a->nama,
+                'jenjang_prodi' => $a->jenjang,
+                'foto_prodi' => $path,
         ]);
             return redirect('/data-prodi')->with('success', 'Data Terubah!!');
         } catch (\Exception $e){

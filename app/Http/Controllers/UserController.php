@@ -174,4 +174,38 @@ class UserController extends Controller
         return redirect()->back()->with('error', 'Data Tidak Berhasil Dihapus!');
     }
     }
+
+    
+    public function insertRegis(Request $a){
+        try{
+            $checkuser = User::where('email',$a->email)->first();
+            if($checkuser){
+                return redirect()->back()->with('warning', 'Email Telah Terdaftar!');
+            }
+            User::create([
+                'name' => $a->name,
+                'email' => $a->email,
+                'password' => Hash::make($a->password),
+                'role' => $a->level,
+                'created_at' => now()
+            ]);
+            $usersid  = User::orderBy('id', 'DESC')->first();
+            ProfileUsers::create([
+                'user_id' => $usersid->id,
+                'nama' => $a->name,
+                'email' => $a->email,
+                'created_at' => now()
+            ]);
+            Timeline::create([
+                'user_id' => $usersid->id,
+                'status' => "Bergabung",
+                'pesan' => 'Membuat Akun baru',
+                'tgl_update' => now(),
+                'created_at' => now()
+            ]);
+        return redirect('/')->with('success', 'Berhasil Register!');
+    }catch (\Exception $e){
+        return redirect()->back()->with('error', 'Data Tidak Tersimpan!');
+    }
+    }
 }

@@ -89,7 +89,7 @@
                 </form>
                 
 
-                <form method="POST" action="/signup" class="sign-up-form">
+                <form method="POST" action="/register" class="sign-up-form">
                     @csrf
                     @if (session()->has('loginError'))
                         <div class="alert alert-danger alert-dismissible fade show">
@@ -115,6 +115,12 @@
                             <strong>Peringatan!</strong> {{ $message }}
                         </div>
                     @enderror
+                    @error('password_confirmation')
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            <svg viewbox="0 -6 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            <strong>Peringatan!</strong> {{ $message }}
+                        </div>
+                    @enderror
                     <h2 class="title">Daftar</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
@@ -127,6 +133,10 @@
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input type="password" placeholder="Kata Sandi" name="password" autocomplete='off' />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Ulangi Kata Sandi" name="password_confirmation" autocomplete='off' />
                     </div>
                     <input type="submit" class="btn" value="DAFTAR" />
                     

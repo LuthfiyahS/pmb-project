@@ -25,14 +25,14 @@ class CreatePendaftaransTable extends Migration
             $table->string('nik');
             $table->string('nama_siswa');
             $table->string('jenis_kelamin');
-            $table->string('pas_foto');
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->string('agama');
+            $table->string('pas_foto')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('agama')->nullable();
 
             //Kontak
-            $table->string('email');
-            $table->string('hp');
+            $table->string('email')->nullable();
+            $table->string('hp')->nullable();
 
             // Alamat lengkap
             $table->string('alamat')->nullable();
@@ -62,34 +62,34 @@ class CreatePendaftaransTable extends Migration
             //     ->onUpdate('cascade')->onDelete('cascade');
 
             //data pendaftaran
-            $table->unsignedBigInteger('gelombang');
+            $table->unsignedBigInteger('gelombang')->nullable();
             $table->foreign('gelombang')
                 ->references('id')
                 ->on('jadwal_kegiatan')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('tahun_masuk');
-            $table->unsignedBigInteger('pil1');
+            $table->unsignedBigInteger('pil1')->nullable();
             $table->foreign('pil1')
                 ->references('id')
                 ->on('program_studi')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('pil2');
+            $table->unsignedBigInteger('pil2')->nullable();
             $table->foreign('pil2')
                 ->references('id')
                 ->on('program_studi')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             //data orang tua
-            $table->string('nama_ayah');
-            $table->string('nama_ibu');
-            $table->string('pekerjaan_ayah');
-            $table->string('pekerjaan_ibu');
+            $table->string('nama_ayah')->nullable();
+            $table->string('nama_ibu')->nullable();
+            $table->string('pekerjaan_ayah')->nullable();
+            $table->string('pekerjaan_ibu')->nullable();
             $table->string('pendidikan_ayah')->nullable();
             $table->string('pendidikan_ibu')->nullable();
             $table->string('nohp_ayah')->nullable();
             $table->string('nohp_ibu')->nullable();
-            $table->string('penghasilan_ayah');
-            $table->string('penghasilan_ibu');
+            $table->string('penghasilan_ayah')->nullable();
+            $table->string('penghasilan_ibu')->nullable();
 
             $table->string('berkas_ortu');//kk akte ijazah raport penghasilan
 

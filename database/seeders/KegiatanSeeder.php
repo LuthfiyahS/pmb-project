@@ -18,15 +18,15 @@ class KegiatanSeeder extends Seeder
         
         DB::table('jadwal_kegiatan')->insert([
             'id_kegiatan' => "JDW00001",
-            'nama_kegiatan' => 'Gelombang 1',
-            'jenis_kegiatan' =>  'REGULER',
+            'nama_kegiatan' => 'Gelombang 1 | REGULER',
+            'jenis_kegiatan' =>  'Pendaftaran',
             'tgl_mulai' =>  now(),
             'tgl_akhir' => now()->addDays(30)->format('Y-m-d'),
         ]);
         DB::table('jadwal_kegiatan')->insert([
             'id_kegiatan' => "JDW00002",
-            'nama_kegiatan' => 'Gelombang 1',
-            'jenis_kegiatan' =>  'BEASISWA PRESTASI',
+            'nama_kegiatan' => 'Gelombang 1 | BEASISWA PRESTASI',
+            'jenis_kegiatan' =>  'Pendaftaran',
             'tgl_mulai' =>  now(),
             'tgl_akhir' => now()->addDays(20)->format('Y-m-d'),
         ]);

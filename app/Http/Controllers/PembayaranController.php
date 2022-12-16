@@ -103,22 +103,19 @@ class PembayaranController extends Controller
         //$dataUser = ProfileUsers::all();
         try{
             $file = $a->file('pem');
-            //if(file_exists($file)){
+            if(file_exists($file)){
                 $kodependaftaran = $a->id_pendaftaran;
                 $nama_file = "payment-".time()."-".$file->getClientOriginalName();
                 $namaFolder = 'data pendaftar/'.$kodependaftaran;
                 $file->move($namaFolder,$nama_file);
                 $pathBukti = $namaFolder."/".$nama_file;
-            //} else {
-              //  $pathBukti = $a->pathnya;
-            //}
-            $dataSaatini=Pembayaran::where("id_pendaftaran", "$a->id_pendaftaran")->get();
-            foreach($dataSaatini as $x){
-                if($x->id_pendaftaran==$a->id_pendaftaran){
-                    Pembayaran::where("id_pembayaran", "$x->id_pembayaran")->update([
+            } else {
+               $pathBukti = null;
+            }
+            $id= Pendaftaran::where("id_pendaftaran", $a->id_pendaftaran)->first();
+                    Pembayaran::where("id_pendaftaran", $id->id)->update([
                         'bukti_pembayaran' => $pathBukti,
                         'status'=> "Dibayar",
-                        'id_pendaftaran' =>$x->id_pendaftaran
                     ]);
                     Timeline::create([
                         'user_id' => Auth::user()->id,
@@ -127,14 +124,11 @@ class PembayaranController extends Controller
                         'tgl_update' => now(),
                         'created_at' => now()
                     ]);
-                }
-            }
             
             return redirect('/detail-registration'.'/'.$a->id_pendaftaran)->with('success', 'Data Terubah!!');
-        
 
         } catch (\Exception $e){
-            return redirect()->back()->with('error', 'Data Tidak Berhasil Diubah!');
+            return redirect()->back()->with('error', 'Data Tidak Berhasil Diubah!' );
         }
     }
 

@@ -94,7 +94,7 @@ class PendaftaranSeeder extends Seeder
             'nilai_interview' => 100,       
             'nilai_test' => 100,       
             'id_pendaftaran' => 1,
-            'user_id' => 3,
+            'user_id' => 2,
             'created_at' => Carbon::now(),
         ]);
     }

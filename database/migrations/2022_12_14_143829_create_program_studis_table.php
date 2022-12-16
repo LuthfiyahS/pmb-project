@@ -17,6 +17,8 @@ class CreateProgramStudisTable extends Migration
             $table->id();
             $table->string('id_prodi');
             $table->string('nama_prodi');
+            $table->string('jenjang_prodi');
+            $table->string('foto_prodi')->nullable();
             $table->timestamps();
         });
     }

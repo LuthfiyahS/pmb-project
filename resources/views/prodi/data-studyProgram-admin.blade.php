@@ -99,8 +99,21 @@
                                         <div class="form-group">
                                             <label for="iduser">Nama Program Studi</label>
                                             <input type="text" class="form-control" id="nama"
-                                                placeholder="Enter Study Program Name" name="nama" required>
-
+                                                placeholder="Masukkan Nama Prodi" name="nama" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="iduser">Jenjang Program Studi</label>
+                                            <input type="text" class="form-control" id="jenjang"
+                                                placeholder="Masukkan Jenjang Prodi" name="jenjang" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="iduser">Foto Program Studi</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">Upload</span>
+                                                <div class="form-file">
+                                                    <input type="file" class="form-file-input form-control" name="foto">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer border-top-0 d-flex">
                                             <button type="button" class="btn btn-danger light"
@@ -121,8 +134,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>ID Program Studi</th>
+                                    <th>ID</th>
                                     <th>Nama Program Studi</th>
+                                    <th>Jenjang</th>
+                                    <th>Gambar</th>
                                     <th>Aksi</th>
                                     
                                 </tr>
@@ -133,6 +148,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $x->id_prodi }}</td>
                                         <td>{{ $x->nama_prodi }}</td>
+                                        <td>{{ $x->jenjang_prodi }}</td>
+                                        <td><img src="{{ asset($x->foto_prodi) }}" width="200px" height="200" alt=""></td>
                                         <td>
                                             <div class="d-flex">
                                                 <a class="btn btn-primary shadow btn-xs sharp me-1" title="Edit"
@@ -194,8 +211,27 @@
                                                                     <label for="iduser">Nama Program Studi</label>
                                                                     <input type="text" class="form-control" id="nama"
                                                                         value="{{ $x->nama_prodi }}"
-                                                                        placeholder="Enter Study Program Name" name="nama"
+                                                                        placeholder="Masukan Nama Prodi" name="nama"
                                                                         required>
+                                                                </div>
+                                                                <div class="col-xl-12">
+                                                                    <label for="iduser">Jenjang Program Studi</label>
+                                                                    <input type="text" class="form-control" id="jenjang"
+                                                                        value="{{ $x->jenjang_prodi }}"
+                                                                        placeholder="Masukan Jenjang Prodi" name="jenjang"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-xl-12">
+                                                                    <label for="iduser">Foto Program Studi</label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">Upload</span>
+                                                                        <div class="form-file">
+                                                                            <input type="file" class="form-file-input form-control" name="foto"
+                                                                                value="{{ old('foto') }}">
+                                                                            <input type="hidden" name="pathnya" class="form-control-file"
+                                                                                value="{{ $x->foto_prodi }}">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

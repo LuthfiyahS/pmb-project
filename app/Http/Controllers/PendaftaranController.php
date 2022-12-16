@@ -50,89 +50,82 @@ class PendaftaranController extends Controller
     }
 
     public function inputpendaftaran(){
-        $dataUser = ProfileUsers::all();
         $dataprod = ProgramStudi::all();
         $datenow = date('Y-m-d');
-        $dataJadwal = JadwalKegiatan::where("tgl_mulai","<","$datenow")->where("tgl_akhir",">","$datenow")->where("jenis_kegiatan","Pendaftaran")->get();
+        $dataJadwal = JadwalKegiatan::where("tgl_mulai","<=",$datenow)->where("tgl_akhir",">",$datenow)->where("jenis_kegiatan","Pendaftaran")->get();
         $dataSekolah = Sekolah::all();
-        return view ('pendaftaran.data-pendaftaran-input-admin',['viewDataJadwal' => $dataJadwal,'viewDataUser' => $dataUser,'viewSekolah' => $dataSekolah,'viewProdi' => $dataprod]);
+        return view ('pendaftaran.data-pendaftaran-input-admin',['viewDataJadwal' => $dataJadwal,'viewSekolah' => $dataSekolah,'viewProdi' => $dataprod]);
     }
 
     public function simpanpendaftaran(Request $a)
     {
         try{
         $dataUser = ProfileUsers::all();
-        $message = [
-            'nisn.required' => 'NISN must be filled',
-            'nik.required' => 'NIK must be filled',
-            'nama.required' => 'Name must be filled',
-            'jk.required' => 'Gender must be filled',
-            'foto.required' => 'Photo cannot be empty',
-            'tempatlahir.required' => 'Birthplace must be filled',
-            'tanggallahir.required' => 'Date of birth must be filled',
-            'agama.required' => 'Religion must be filled',
-            'alamat.required' => 'Address must be filled',
-            'email.required' => 'Email must be filled',
-            'nohp.required' => 'Mobile phone must be filled',
-            'gelombang.required' => 'Batch must be filled',
-            'pil1.required' => 'Prodi choice must be filled',
-            'pil2.required' => 'Prodi choice must be filled',
-            'ayah.required' => 'Father`s name must be filled',
-            'ibu.required' => 'Mother`s name must be filled',
-            'pekerjaanayah.required' => 'Father`s occupation must be filled',
-            'pekerjaanibu.required' => 'Mother`s occupation must be filled',
-            'noayah.required' => 'Father`s phone number must be filled',
-            'noibu.required' => 'Mother`s phone number must be filled',
-            'gaji.required' => 'PaySlip must be filled',
-            'tanggungan.required' => 'Family dependents must be filled',
-            'ftgaji.required' => 'PaySlip cannot be empty',
-            'ftkk.required' => 'Family card cannot be empty',
-            'id_sekolah.required' => 'School name must be filled',
-            'jurusan.required' => 'Major must be filled',
-            'smt1.required' => 'Semester 1 must be filled',
-            'smt2.required' => 'Semester 2 must be filled',
-            'smt3.required' => 'Semester 3 must be filled',
-            'smt4.required' => 'Semester 4 must be filled',
-            'smt5.required' => 'Semester 5 must be filled',
-            'ftraport.required' => 'Raport cannot be empty',
-        ];
+        // $message = [
+        //     'nisn.required' => 'NISN must be filled',
+        //     'nik.required' => 'NIK must be filled',
+        //     'nama.required' => 'Name must be filled',
+        //     'jk.required' => 'Gender must be filled',
+        //     'foto.required' => 'Photo cannot be empty',
+        //     'tempatlahir.required' => 'Birthplace must be filled',
+        //     'tanggallahir.required' => 'Date of birth must be filled',
+        //     'agama.required' => 'Religion must be filled',
+        //     'alamat.required' => 'Address must be filled',
+        //     'email.required' => 'Email must be filled',
+        //     'nohp.required' => 'Mobile phone must be filled',
+        //     'gelombang.required' => 'Batch must be filled',
+        //     'pil1.required' => 'Prodi choice must be filled',
+        //     'pil2.required' => 'Prodi choice must be filled',
+        //     'ayah.required' => 'Father`s name must be filled',
+        //     'ibu.required' => 'Mother`s name must be filled',
+        //     'pekerjaanayah.required' => 'Father`s occupation must be filled',
+        //     'pekerjaanibu.required' => 'Mother`s occupation must be filled',
+        //     'noayah.required' => 'Father`s phone number must be filled',
+        //     'noibu.required' => 'Mother`s phone number must be filled',
+        //     'penghasilan_ayah.required' => 'PaySlip must be filled',
+        //     'penghasilan_ibu.required' => 'PaySlip must be filled',
+        //     'ftberkas.required' => 'PaySlip cannot be empty',
+        //     'sekolah.required' => 'School name must be filled',
+        //     'smt1.required' => 'Semester 1 must be filled',
+        //     'smt2.required' => 'Semester 2 must be filled',
+        //     'smt3.required' => 'Semester 3 must be filled',
+        //     'smt4.required' => 'Semester 4 must be filled',
+        //     'smt5.required' => 'Semester 5 must be filled',
+        //     'ftberkas_siswa.required' => 'Raport cannot be empty',
+        // ];
 
-        $cekValidasi = $a->validate([
-            //'id_pendaftaran' => 'required',
-            //'user_id' => 'required',
-            'nisn' => 'required',
-            'nik' => 'required',
-            'nama' => 'required',
-            'jk' => 'required',
-            'foto' => 'required',
-            'tempatlahir' => 'required',
-            'tanggallahir' => 'required',
-            'agama' => 'required',
-            'alamat' => 'required',
-            'email' => 'required',
-            'nohp' => 'required',
-            'gelombang' => 'required',
-            'pil1' => 'required',
-            'pil2' => 'required',
-            'ayah' => 'required',
-            'ibu' => 'required',
-            'pekerjaanayah' => 'required',
-            'pekerjaanibu' => 'required',
-            'noayah' => 'required',
-            'noibu' => 'required',
-            'gaji' => 'required',
-            'tanggungan' => 'required',
-            'ftgaji' => 'required',
-            'ftkk' => 'required',
-            'id_sekolah' => 'required',
-            'jurusan' => 'required',
-            'smt1' => 'required',
-            'smt2' => 'required',
-            'smt3' => 'required',
-            'smt4' => 'required',
-            'smt5' => 'required',
-            'ftraport' => 'required'
-        ], $message);
+        // $cekValidasi = $a->validate([
+        //     'nisn' => 'required',
+        //     'nik' => 'required',
+        //     'nama' => 'required',
+        //     'jk' => 'required',
+        //     'foto' => 'required',
+        //     'tempatlahir' => 'required',
+        //     'tanggallahir' => 'required',
+        //     'agama' => 'required',
+        //     'alamat' => 'required',
+        //     'email' => 'required',
+        //     'nohp' => 'required',
+        //     'gelombang' => 'required',
+        //     'pil1' => 'required',
+        //     'pil2' => 'required',
+        //     'ayah' => 'required',
+        //     'ibu' => 'required',
+        //     'pekerjaanayah' => 'required',
+        //     'pekerjaanibu' => 'required',
+        //     'noayah' => 'required',
+        //     'noibu' => 'required',
+        //     'penghasilan_ayah' => 'required',
+        //     'penghasilan_aibu' => 'required',
+        //     'ftberkas_ortu' => 'required',
+        //     'sekolah' => 'required',
+        //     'smt1' => 'required',
+        //     'smt2' => 'required',
+        //     'smt3' => 'required',
+        //     'smt4' => 'required',
+        //     'smt5' => 'required',
+        //     'ftberkas_siswa' => 'required'
+        // ], $message);
 
         $kodependaftaran = Pendaftaran::id();
 
@@ -142,23 +135,18 @@ class PendaftaranController extends Controller
         $file->move($namaFolder,$nama_file);
         $pathFoto = $namaFolder."/".$nama_file;
 
-        $fileftgaji = $a->file('ftgaji');
-        $nama_fileftgaji = "Slipgaji".time() . "-" . $fileftgaji->getClientOriginalName();
+        $fileftberkas_ortu = $a->file('ftberkas_ortu');
+        $nama_fileftberkas_ortu = "BerkasOrtu".time() . "-" . $fileftberkas_ortu->getClientOriginalName();
         $namaFolderftgaji = 'data pendaftar/'.$kodependaftaran;
-        $fileftgaji->move($namaFolderftgaji,$nama_fileftgaji);
-        $pathGaji = $namaFolderftgaji."/".$nama_fileftgaji;
+        $fileftberkas_ortu->move($namaFolderftgaji,$nama_fileftberkas_ortu);
+        $pathOrtu = $namaFolderftgaji."/".$nama_fileftberkas_ortu;
 
-        $fileftkk = $a->file('ftkk');
-        $nama_fileftkk = "KartuKeluarga".time() . "-" . $fileftkk->getClientOriginalName();
-        $namaFolderftkk = 'data pendaftar/'.$kodependaftaran;
-        $fileftkk->move($namaFolderftkk,$nama_fileftkk);
-        $pathKK = $namaFolderftkk."/".$nama_fileftkk;
 
-        $fileftraport = $a->file('ftraport');
-        $nama_fileftraport = "Pasfoto".time() . "-" . $fileftraport->getClientOriginalName();
+        $fileftberkas_siswa = $a->file('ftberkas_siswa');
+        $nama_fileftberkas_siswa = "BerkasSiswa".time() . "-" . $fileftberkas_siswa->getClientOriginalName();
         $namaFolderftraport = 'data pendaftar/'.$kodependaftaran;
-        $fileftraport->move($namaFolderftraport,$nama_fileftraport);
-        $pathRaport = $namaFolderftraport."/".$nama_fileftraport;
+        $fileftberkas_siswa->move($namaFolderftraport,$nama_fileftberkas_siswa);
+        $pathSiswa = $namaFolderftraport."/".$nama_fileftberkas_siswa;
 
         $fileftprestasi = $a->file('ftprestasi');
         if(file_exists($fileftprestasi)){
@@ -170,19 +158,9 @@ class PendaftaranController extends Controller
             $pathPrestasi = null;
         }
 
-        $fileftijazah = $a->file('ftijazah');
-        if(file_exists($fileftijazah)){
-            $nama_fileftijazah = "Ijazah".time() . "-" . $fileftijazah->getClientOriginalName();
-            $namaFolderftijazah = 'data pendaftar/'.$kodependaftaran;
-            $fileftijazah->move($namaFolderftijazah,$nama_fileftijazah);
-            $pathIjazah = $namaFolderftijazah."/".$nama_fileftijazah;
-        } else {
-            $pathIjazah = null;
-        }
-
         Pendaftaran::create([
             'id_pendaftaran' => $kodependaftaran,
-            'user_id' => $a->user_id,
+            'user_id' => Auth::user()->id,
             'nisn' => $a->nisn,
             'nik' => $a->nik,
             'nama_siswa' => $a->nama,
@@ -191,52 +169,66 @@ class PendaftaranController extends Controller
             'tempat_lahir' => $a->tempatlahir,
             'tanggal_lahir' => $a->tanggallahir,
             'agama' => $a->agama,
-            'alamat' => $a->alamat,
+
             'email' => $a->email,
-            'nohp' => $a->nohp,
+            'hp' => $a->nohp,
+            
+            'alamat' => $a->alamat,
+
+            //pendaftaran
             'gelombang' => $a->gelombang,
             'tahun_masuk' => '2022',
             'pil1' => $a->pil1,
             'pil2' => $a->pil2,
+            
+            //ayahibu
             'nama_ayah' => $a->ayah,
             'nama_ibu' => $a->ibu,
             'pekerjaan_ayah' => $a->pekerjaanayah,
             'pekerjaan_ibu' => $a->pekerjaanibu,
+            //pendidikan
             'nohp_ayah' => $a->noayah,
             'nohp_ibu' => $a->noibu,
-            'gaji' => $a->gaji,
-            'tanggungan' => $a->tanggungan,
-            'slip_gaji' =>  $pathGaji,
-            'kk' => $pathKK,
-            'id_Sekolah' => $a->id_sekolah,
-            'jurusan' => $a->jurusan,
+            'penghasilan_ayah' => $a->penghasilan_ayah,
+            'penghasilan_ibu' => $a->penghasilan_ibu,
+            'berkas_ortu' =>  $pathOrtu,
+
+            'sekolah' => $a->sekolah,
             'smt1' => $a->smt1,
             'smt2' => $a->smt2,
             'smt3' => $a->smt3,
             'smt4' => $a->smt4,
             'smt5' => $a->smt5,
-            'nilairaport' => $pathRaport,
-            'ijazah' => $pathIjazah,
+            'smt6' => $a->smt6,
+            'berkas_siswa' => $pathSiswa,
             'prestasi' => $pathPrestasi,
-            'status_pendaftaran' => 'Belum Terverifikasi'
-
+            
+            'status_pendaftaran' => 'Belum Terverifikasi',
+            'tgl_pendaftaran' => now(),
+            'created_at' => now()
         ]);
-
+        $pendaftaranbaru = Pendaftaran::orderBy('id','DESC')->first();
+        $id_pendaftaran = $pendaftaranbaru->id;
         //tambah insert
         $kodepembayaran = Pembayaran::id();
         Pembayaran::create([
             'id_pembayaran' => $kodepembayaran,
             //'bukti_pembayaran' => "NULL",
-            'status_pembayaran'=> "Belum Bayar",
-            'id_pendaftaran' =>$kodependaftaran
+            'status'=> "Belum Bayar",
+            'verifikasi'=> false,
+            'jatuh_tempo'  => now()->addDays(2)->format('Y-m-d'),
+            'tgl_pembayaran' => now(),
+            'total_bayar'  => 150000, 
+            'id_pendaftaran' =>$id_pendaftaran,
+            'created_at' => now()
         ]);
 
         $kodepengumuman = Pengumuman::id();
         Pengumuman::create([
             'id_pengumuman' => $kodepengumuman,
-            'id_pendaftaran' => $kodependaftaran,
+            'id_pendaftaran' => $id_pendaftaran,
             'hasil_seleksi' => "Belum Seleksi",
-            'prodi_penerima' => "Belum Tersedia",
+            'status' => false,
         ]);
 
         Timeline::create([
@@ -247,18 +239,11 @@ class PendaftaranController extends Controller
             'created_at' => now()
         ]);
 
-        $rolenow = User::find($a->id);
         return redirect('/data-registration')->with('success', 'Data Tersimpan!!');
-    } catch (\Exception $e){
-        return redirect()->back()->with('error', 'Data Tidak Berhasil Tersimpan!');
-    }
-        //if ($rolenow->role=="Administrator"){
-            //return redirect('/data-registration')->with('berhasil','data berhasil disimpan');
-        //}
-        //elseif($rolenow->role=="Calon Mahasiswa"){
-
-        //return redirect('/detail-registration'.'/'.$a->kodependaftaran)->with('berhasil','data berhasil disimpan');
-        //}
+        } catch (\Exception $e){
+            echo $e->getMessage();
+            //return redirect()->back()->with('error', 'Data Tidak Berhasil Tersimpan!');
+        }
     }
 
     public function verifikasistatuspendaftaran($id_pendaftaran){
@@ -306,6 +291,21 @@ class PendaftaranController extends Controller
         return redirect('/data-registration');
     }
 
+    public function selesaistatuspendaftaran($id_pendaftaran){
+        //$dataUser = ProfileUsers::all();
+        Pendaftaran::where("id_pendaftaran", "$id_pendaftaran")->update([
+            'status_pendaftaran' => "Selesai"
+        ]);
+        Timeline::create([
+            'user_id' => Auth::user()->id,
+            'status' => "Pendaftaran",    
+            'pesan' => "Melakukan perubahan verifikasi pendaftaran ".$id_pendaftaran." (Umumkan)",
+            'tgl_update' => now(),
+            'created_at' => now()
+        ]);
+        return redirect('/data-registration');
+    }
+
 
     public function editpendaftaran($id_pendaftaran)
     {
@@ -313,7 +313,7 @@ class PendaftaranController extends Controller
         $dataprod = ProgramStudi::all();
         $dataSekolah = Sekolah::all();
         $datenow = date('Y-m-d');
-        $dataJadwal = JadwalKegiatan::where("tgl_mulai","<","$datenow")->where("tgl_akhir",">","$datenow")->where("jenis_kegiatan","Pendaftaran")->get();
+        $dataJadwal = JadwalKegiatan::where("tgl_mulai","<=","$datenow")->where("tgl_akhir",">","$datenow")->where("jenis_kegiatan","Pendaftaran")->get();
         $data = Pendaftaran::where("id_pendaftaran",$id_pendaftaran)->first();
         return view('pendaftaran.data-pendaftaran-edit-admin', ['viewDataJadwal' => $dataJadwal,'viewDataUser' => $dataUser,'viewData' => $data,'viewSekolah' => $dataSekolah,'viewProdi' => $dataprod]);
     }
@@ -321,76 +321,71 @@ class PendaftaranController extends Controller
     public function updatependaftaran(Request $a, $id_pendaftaran){
 
         try{
-        $dataUser = ProfileUsers::all();
-        $message = [
-            'nisn.required' => 'NISN must be filled',
-            'nik.required' => 'NIK must be filled',
-            'nama.required' => 'Name must be filled',
-            'jk.required' => 'Gender must be filled',
-            'foto.required' => 'Photo cannot be empty',
-            'tempatlahir.required' => 'Birthplace must be filled',
-            'tanggallahir.required' => 'Date of birth must be filled',
-            'agama.required' => 'Religion must be filled',
-            'alamat.required' => 'Address must be filled',
-            'email.required' => 'Email must be filled',
-            'nohp.required' => 'Mobile phone must be filled',
-            'gelombang.required' => 'Batch must be filled',
-            'pil1.required' => 'Prodi choice must be filled',
-            'pil2.required' => 'Prodi choice must be filled',
-            'ayah.required' => 'Father`s name must be filled',
-            'ibu.required' => 'Mother`s name must be filled',
-            'pekerjaanayah.required' => 'Father`s occupation must be filled',
-            'pekerjaanibu.required' => 'Mother`s occupation must be filled',
-            'noayah.required' => 'Father`s phone number must be filled',
-            'noibu.required' => 'Mother`s phone number must be filled',
-            'gaji.required' => 'PaySlip must be filled',
-            'tanggungan.required' => 'Family dependents must be filled',
-            'ftgaji.required' => 'PaySlip cannot be empty',
-            'ftkk.required' => 'Family card cannot be empty',
-            'id_sekolah.required' => 'School name must be filled',
-            'jurusan.required' => 'Major must be filled',
-            'smt1.required' => 'Semester 1 must be filled',
-            'smt2.required' => 'Semester 2 must be filled',
-            'smt3.required' => 'Semester 3 must be filled',
-            'smt4.required' => 'Semester 4 must be filled',
-            'smt5.required' => 'Semester 5 must be filled',
-            'ftraport.required' => 'Raport cannot be empty'
-        ];
+        // $message = [
+        //     'nisn.required' => 'NISN must be filled',
+        //     'nik.required' => 'NIK must be filled',
+        //     'nama.required' => 'Name must be filled',
+        //     'jk.required' => 'Gender must be filled',
+        //     'foto.required' => 'Photo cannot be empty',
+        //     'tempatlahir.required' => 'Birthplace must be filled',
+        //     'tanggallahir.required' => 'Date of birth must be filled',
+        //     'agama.required' => 'Religion must be filled',
+        //     'alamat.required' => 'Address must be filled',
+        //     'email.required' => 'Email must be filled',
+        //     'nohp.required' => 'Mobile phone must be filled',
+        //     'gelombang.required' => 'Batch must be filled',
+        //     'pil1.required' => 'Prodi choice must be filled',
+        //     'pil2.required' => 'Prodi choice must be filled',
+        //     'ayah.required' => 'Father`s name must be filled',
+        //     'ibu.required' => 'Mother`s name must be filled',
+        //     'pekerjaanayah.required' => 'Father`s occupation must be filled',
+        //     'pekerjaanibu.required' => 'Mother`s occupation must be filled',
+        //     'noayah.required' => 'Father`s phone number must be filled',
+        //     'noibu.required' => 'Mother`s phone number must be filled',
+        //     'penghasilan_ayah.required' => 'PaySlip must be filled',
+        //     'penghasilan_ibu.required' => 'Family dependents must be filled',
+        //     'ftberkas_ortu.required' => 'Berkas cannot be empty',
+        //     'sekolah.required' => 'School name must be filled',
+        //     'smt1.required' => 'Semester 1 must be filled',
+        //     'smt2.required' => 'Semester 2 must be filled',
+        //     'smt3.required' => 'Semester 3 must be filled',
+        //     'smt4.required' => 'Semester 4 must be filled',
+        //     'smt5.required' => 'Semester 5 must be filled',
+        //     'ftberkas_siswa.required' => 'Raport cannot be empty'
+        // ];
 
-        $cekValidasi = $a->validate([
-            'nisn' => 'required',
-            'nik' => 'required',
-            'nama' => 'required',
-            'jk' => 'required',
-            'foto' => 'required',
-            'tempatlahir' => 'required',
-            'tanggallahir' => 'required',
-            'agama' => 'required',
-            'alamat' => 'required',
-            'email' => 'required',
-            'nohp' => 'required',
-            'gelombang' => 'required',
-            'pil1' => 'required',
-            'pil2' => 'required',
-            'ayah' => 'required',
-            'ibu' => 'required',
-            'pekerjaanayah' => 'required',
-            'pekerjaanibu' => 'required',
-            'noayah' => 'required',
-            'noibu' => 'required',
-            'gaji' => 'required',
-            'tanggungan' => 'required',
-            'ftgaji' => 'required',
-            'ftkk' => 'required',
-            'id_sekolah' => 'required',
-            'jurusan' => 'required',
-            'smt1' => 'required',
-            'smt2' => 'required',
-            'smt3' => 'required',
-            'smt4' => 'required',
-            'smt5' => 'required',
-            'ftraport' => 'required'
-        ], $message);
+        // $cekValidasi = $a->validate([
+        //     'nisn' => 'required',
+        //     'nik' => 'required',
+        //     'nama' => 'required',
+        //     'jk' => 'required',
+        //     'foto' => 'required',
+        //     'tempatlahir' => 'required',
+        //     'tanggallahir' => 'required',
+        //     'agama' => 'required',
+        //     'alamat' => 'required',
+        //     'email' => 'required',
+        //     'nohp' => 'required',
+        //     'gelombang' => 'required',
+        //     'pil1' => 'required',
+        //     'pil2' => 'required',
+        //     'ayah' => 'required',
+        //     'ibu' => 'required',
+        //     'pekerjaanayah' => 'required',
+        //     'pekerjaanibu' => 'required',
+        //     'noayah' => 'required',
+        //     'noibu' => 'required',
+        //     'penghasilan_ayah' => 'required',
+        //     'penghasilan_ibu' => 'required',
+        //     'ftberkas_ortu' => 'required',
+        //     'sekolah' => 'required',
+        //     'smt1' => 'required',
+        //     'smt2' => 'required',
+        //     'smt3' => 'required',
+        //     'smt4' => 'required',
+        //     'smt5' => 'required',
+        //     'ftberkas_siswa' => 'required'
+        // ], $message);
 
         $kodependaftaran = Pendaftaran::id();
 
@@ -404,34 +399,24 @@ class PendaftaranController extends Controller
             $pathFoto = $a->pathFoto;
         }
 
-        $fileftgaji = $a->file('ftgaji');
-        if(file_exists($fileftgaji)){
-            $nama_fileftgaji = "Slipgaji".time() . "-" . $fileftgaji->getClientOriginalName();
+        $fileftberkas_ortu = $a->file('ftberkas_ortu');
+        if(file_exists($fileftberkas_ortu)){
+            $nama_fileftberkas_ortu = "Slipgaji".time() . "-" . $fileftberkas_ortu->getClientOriginalName();
             $namaFolderftgaji = 'data pendaftar/'.$kodependaftaran;
-            $fileftgaji->move($namaFolderftgaji,$nama_fileftgaji);
-            $pathGaji = $namaFolderftgaji."/".$nama_fileftgaji;
+            $fileftberkas_ortu->move($namaFolderftgaji,$nama_fileftberkas_ortu);
+            $pathOrtu = $namaFolderftgaji."/".$nama_fileftberkas_ortu;
         } else {
-            $pathGaji = $a->pathGaji;
+            $pathOrtu = $a->pathOrtu;
         }
 
-        $fileftkk = $a->file('ftkk');
-        if(file_exists($fileftkk)){
-            $nama_fileftkk = "KartuKeluarga".time() . "-" . $fileftkk->getClientOriginalName();
-            $namaFolderftkk = 'data pendaftar/'.$kodependaftaran;
-            $fileftkk->move($namaFolderftkk,$nama_fileftkk);
-            $pathKK = $namaFolderftkk."/".$nama_fileftkk;
-        } else {
-            $pathKK = $a->pathKk;
-        }
-
-        $fileftraport = $a->file('ftraport');
-        if(file_exists($fileftraport)){
-            $nama_fileftraport = "Raport".time() . "-" . $fileftraport->getClientOriginalName();
+        $fileftberkas_siswa = $a->file('ftberkas_siswa');
+        if(file_exists($fileftberkas_siswa)){
+            $nama_fileftberkas_siswa = "Raport".time() . "-" . $fileftberkas_siswa->getClientOriginalName();
             $namaFolderftraport = 'data pendaftar/'.$kodependaftaran;
-            $fileftraport->move($namaFolderftraport,$nama_fileftraport);
-            $pathRaport = $namaFolderftraport."/".$nama_fileftraport;
+            $fileftberkas_siswa->move($namaFolderftraport,$nama_fileftberkas_siswa);
+            $pathSiswa = $namaFolderftraport."/".$nama_fileftberkas_siswa;
         } else {
-            $pathRaport = $a->pathRaport;
+            $pathSiswa = $a->pathSiswa;
         }
 
         $fileftprestasi = $a->file('ftprestasi');
@@ -444,17 +429,7 @@ class PendaftaranController extends Controller
             $pathPrestasi = $a->pathPrestasi;
         }
 
-        $fileftijazah = $a->file('ftijazah');
-        if(file_exists($fileftijazah)){
-            $nama_fileftijazah = "Ijazah".time() . "-" . $fileftijazah->getClientOriginalName();
-            $namaFolderftijazah = 'data pendaftar/'.$kodependaftaran;
-            $fileftijazah->move($namaFolderftijazah,$nama_fileftijazah);
-            $pathIjazah = $namaFolderftijazah."/".$nama_fileftijazah;
-        } else {
-            $pathIjazah = $a->pathIjazah;
-        }
-
-        Pendaftaran::where("id_pendaftaran", "$id_pendaftaran")->update([
+        Pendaftaran::where("id_pendaftaran", $id_pendaftaran)->update([
             'nisn' => $a->nisn,
             'nik' => $a->nik,
             'nama_siswa' => $a->nama,
@@ -465,7 +440,7 @@ class PendaftaranController extends Controller
             'agama' => $a->agama,
             'alamat' => $a->alamat,
             'email' => $a->email,
-            'nohp' => $a->nohp,
+            'hp' => $a->nohp,
             'gelombang' => $a->gelombang,
             'tahun_masuk' => '2021',
             'pil1' => $a->pil1,
@@ -476,19 +451,17 @@ class PendaftaranController extends Controller
             'pekerjaan_ibu' => $a->pekerjaanibu,
             'nohp_ayah' => $a->noayah,
             'nohp_ibu' => $a->noibu,
-            'gaji' => $a->gaji,
-            'tanggungan' => $a->tanggungan,
-            'slip_gaji' =>  $pathGaji,
-            'kk' => $pathKK,
-            'id_Sekolah' => $a->id_sekolah,
-            'jurusan' => $a->jurusan,
+            'penghasilan_ayah' => $a->penghasilan_ayah,
+            'penghasilan_ibu' => $a->penghasilan_ibu,
+            'berkas_ortu' =>  $pathOrtu,
+            'sekolah' => $a->sekolah,
             'smt1' => $a->smt1,
             'smt2' => $a->smt2,
             'smt3' => $a->smt3,
             'smt4' => $a->smt4,
             'smt5' => $a->smt5,
-            'nilairaport' => $pathRaport,
-            'ijazah' => $pathIjazah,
+            'smt6' => $a->smt6,
+            'berkas_siswa' => $pathSiswa,
             'prestasi' => $pathPrestasi
         ]);
         Timeline::create([
@@ -500,7 +473,8 @@ class PendaftaranController extends Controller
         ]);
         return redirect('/data-registration')->with('success', 'Data Terubah!!');
         } catch (\Exception $e){
-            return redirect()->back()->with('error', 'Data Tidak Berhasil Diubah!');
+            echo $e;
+            //return redirect()->back()->with('error', 'Data Tidak Berhasil Diubah!');
         }
     }
 
@@ -509,10 +483,8 @@ class PendaftaranController extends Controller
         try{
             $data = Pendaftaran::find($id_pendaftaran);
             File::delete($data->foto);
-            File::delete($data->slip_gaji);
-            File::delete($data->kk);
-            File::delete($data->nilai_raport);
-            File::delete($data->ijazah);
+            File::delete($data->berkas_ortu);
+            File::delete($data->berkas_siswa);
             File::delete($data->prestasi);
             $data->delete();
             $dataPembayaran = Pembayaran::where("id_pendaftaran",$id_pendaftaran)->get();
@@ -541,12 +513,13 @@ class PendaftaranController extends Controller
         $dataUser = ProfileUsers::all();
         $dataprod = ProgramStudi::all();
         $dataSekolah = Sekolah::all();
-        $datPembayaran = Pembayaran::where("id_pendaftaran",$id_pendaftaran)->first();
+        $data = Pendaftaran::where("id_pendaftaran",$id_pendaftaran)->first();
+        $datPembayaran = Pembayaran::where("id_pendaftaran",$data->id)->first();
         $no=1;
         
-        $data = Pendaftaran::where("id_pendaftaran",$id_pendaftaran)->first();
+        
         $datapembayaran = Pendaftaran::where("id_pendaftaran", $id_pendaftaran)->get();
-        return view('pendaftaran.data-pendaftaran-detail', ['viewDataUser' => $dataUser,'viewDataPembayaran' => $datPembayaran,'viewDataPembayaran' => $datapembayaran,'viewData' => $data,'viewSekolah' => $dataSekolah,'viewProdi' => $dataprod]);
+        return view('pendaftaran.data-pendaftaran-detail', ['viewDataUser' => $dataUser,'viewDataPembayaran' => $datPembayaran,'viewData' => $data,'viewSekolah' => $dataSekolah,'viewProdi' => $dataprod]);
     }
 
     public function kartupendaftaran($id_pendaftaran)

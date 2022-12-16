@@ -25,7 +25,7 @@ use App\Http\Controllers\LogAkunController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::post('regist', [UserController::class, 'insertRegis'])->name('regist');
 /**
  * socialite auth
  */
@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/verified-registration/{id_pendaftaran}', [PendaftaranController::class, 'verifikasistatuspendaftaran']);
     Route::get('/notverified-registration/{id_pendaftaran}', [PendaftaranController::class, 'notverifikasistatuspendaftaran']);
     Route::get('/invalid-registration/{id_pendaftaran}', [PendaftaranController::class, 'invalidstatuspendaftaran']);
+    Route::get('/finish-registration/{id_pendaftaran}', [PendaftaranController::class, 'selesaistatuspendaftaran']);
 
     //pembayaran
     Route::get('/data-payment', [PembayaranController::class, 'datapembayaran'])->name('data-pembayaran');
@@ -86,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-payment/{id_pembayaran}', [PembayaranController::class, 'updatepembayaran']);
     Route::get('/delete-payment/{id_pembayaran}', [PembayaranController::class, 'hapuspembayaran']);
 
-    Route::post('/upload-payment', [PembayaranController::class, 'updatebuktipembayaran']);
+    Route::post('/upload-payment', [PembayaranController::class, 'updatebuktipembayaran'])->name('upload-payment');
     Route::get('/paid-payment/{id_pembayaran}', [PembayaranController::class, 'verifikasipembayaran']);
     Route::get('/unpaid-payment/{id_pembayaran}', [PembayaranController::class, 'belumbayar']);
     Route::get('/invalid-payment/{id_pembayaran}', [PembayaranController::class, 'invalidbayar']);

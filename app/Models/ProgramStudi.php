@@ -11,7 +11,7 @@ class ProgramStudi extends Model
     use HasFactory;
     protected $table = "program_studi";
     protected $primaryKey= "id";
-    protected $fillable = ["id_prodi","nama_prodi"];
+    protected $fillable = ["id_prodi","nama_prodi","jenjang_prodi","foto_prodi"];
     public $timestamps = false;
     public $incrementing = false;
 

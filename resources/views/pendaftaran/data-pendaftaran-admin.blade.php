@@ -50,21 +50,11 @@
                     </a>
                 </li>
             @else
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($viewDataUser as $x)
-                    @if ($no == 1)
-                        <li><a href="data-registration" aria-expanded="false">
-                                <i class="fa fa-database"></i>
-                                <span class="nav-text">Pendaftaran</span>
-                            </a>
-                        </li>
-                    @endif
-                    @php
-                        $no++;
-                    @endphp
-                @endforeach
+                <li><a href="{{route('data-registration')}}" aria-expanded="false">
+                    <i class="fa fa-database"></i>
+                        <span class="nav-text">Pendaftaran</span>
+                    </a>
+                </li>
             @endif
         </ul>
     @endauth
@@ -161,6 +151,11 @@
                                                                             class="dropdown-item"
                                                                             href="/notverified-registration/{{ $x->id_pendaftaran }}">Belum
                                                                             Terverifikasi</a>
+                                                                            <div class="dropdown-divider"></div><a
+                                                                            class="dropdown-item text-success"
+                                                                            href="/finish-registration/{{ $x->id_pendaftaran }}">Selesai
+                                                                            </a>
+                                                                    </div>
                                                                         <div class="dropdown-divider"></div><a
                                                                             class="dropdown-item text-danger"
                                                                             href="/invalid-registration/{{ $x->id_pendaftaran }}">Tidak
@@ -307,8 +302,8 @@
                                                         </svg>
                                                         <div>
                                                             <small
-                                                                class="d-block fs-16 font-w400">{{ $x->gelombang }}</small>
-                                                            <span class="fs-18 font-w500">{{ $x->pil1 }}</span>
+                                                                class="d-block fs-16 font-w400">{{ $x->pilihan1->nama_prodi }}</small>
+                                                            <span class="fs-18 font-w500">{{ $x->pilihan2->nama_prodi }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -351,6 +346,11 @@
                                                                 <a class="dropdown-item"
                                                                     href="detail-registration/{{ $x->id_pendaftaran }}">Lihat
                                                                     Selengkapnya</a>
+                                                                @if ($x->status_pendaftaran == 'Selesai')
+                                                                    <a class="dropdown-item"
+                                                                    href="view-announcement/{{ $x->id_pendaftaran }}">Lihat
+                                                                    Pengumuman</a>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>

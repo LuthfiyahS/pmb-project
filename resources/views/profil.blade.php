@@ -143,8 +143,7 @@
                             </li>
                             <li class="nav-item"><a href="#password-settings" data-bs-toggle="tab"
                                 class="nav-link">Ganti Kata Sandi</a>
-                        </li>
-                        </li>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div id="about-me" class="tab-pane fade active show">
