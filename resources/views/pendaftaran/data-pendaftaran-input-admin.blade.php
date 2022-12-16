@@ -74,7 +74,7 @@
     <div class="row">
         <form action="/save-registration" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
-            <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+            <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
             @foreach ($viewDataUser as $x)
                 @if (auth()->user()->email == $x->Email)
                     <div class="col-xl-12">
@@ -98,7 +98,7 @@
                                 <div id="personal-data" class="collapse show">
                                     <div class="p-4 border-top">
                                         <div class="row">
-                                            <input type="hidden" name="id_user" value="{{ $x->Id_user }}">
+                                            <input type="hidden" name="user_id" value="{{ $x->user_id }}">
                                             <input type="hidden" name="id" value="{{ auth()->user()->id }}">
                                         </div>
                                         <div class="row">

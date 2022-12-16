@@ -52,7 +52,7 @@ Detail Pendaftaran
             @else
             @foreach ($viewDataUser as $x)
                     @if (auth()->user()->email == $x->Email)
-                        @if ($x->Id_user == $viewData->id_user)
+                        @if ($x->user_id == $viewData->user_id)
                             <li><a href="../../registration/{{ $viewData->id_pendaftaran }}" aria-expanded="false">
                                     <i class="fa fa-database"></i>
                                     <span class="nav-text">Pendaftaran</span>
@@ -147,7 +147,7 @@ Detail Pendaftaran
                                 <div class="modal-body">
                                     <form action="../upload-payment" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                         <div class="form-group">
                                             <input type="hidden" name="id_pendaftaran" id="nama" class="form-control"
                                             value="{{ $viewData->id_pendaftaran }}">

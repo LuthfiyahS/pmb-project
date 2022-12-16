@@ -89,7 +89,7 @@
                                 <div class="modal-body">
                                     <form action="save-jadwal" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                         <div class="form-group">
                                             <label for="iduser">Nama Kegiatan</label>
                                             <input type="text" class="form-control" id="nama"
@@ -226,7 +226,7 @@
                                                     <form action="update-jadwal/{{ $x->id }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         {{ csrf_field() }}
-                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                                         <input type="hidden" name="id" value="{{ $x->id }}">
                                                         
                                                         <div class="form-group">

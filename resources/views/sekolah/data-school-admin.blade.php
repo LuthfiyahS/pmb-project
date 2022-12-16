@@ -88,7 +88,7 @@
                                 <div class="modal-body">
                                     <form action="save-school" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-xl-4">
@@ -210,7 +210,7 @@
                                                     <form action="update-school/{{ $x->NPSN }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         {{ csrf_field() }}
-                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-xl-4">

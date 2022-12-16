@@ -99,7 +99,7 @@ class PendaftaranController extends Controller
 
         $cekValidasi = $a->validate([
             //'id_pendaftaran' => 'required',
-            //'id_user' => 'required',
+            //'user_id' => 'required',
             'nisn' => 'required',
             'nik' => 'required',
             'nama' => 'required',
@@ -182,7 +182,7 @@ class PendaftaranController extends Controller
 
         Pendaftaran::create([
             'id_pendaftaran' => $kodependaftaran,
-            'id_user' => $a->id_user,
+            'user_id' => $a->user_id,
             'nisn' => $a->nisn,
             'nik' => $a->nik,
             'nama_siswa' => $a->nama,
@@ -240,7 +240,7 @@ class PendaftaranController extends Controller
         ]);
 
         Timeline::create([
-            'id_user' => $a->id_user,
+            'user_id' => $a->user_id,
             'status' => "Melakukan pendaftaran penerimaan mahasiswa baru"
         ]);
 
@@ -264,7 +264,7 @@ class PendaftaranController extends Controller
             'status_pendaftaran' => "Terverifikasi"
         ]);
         Timeline::create([
-            'id_user' => $id_pendaftaran,
+            'user_id' => $id_pendaftaran,
             'status' => "di verifikasi"
         ]);
         return redirect('/data-registration');
@@ -276,7 +276,7 @@ class PendaftaranController extends Controller
             'status_pendaftaran' => "Belum Terverifikasi"
         ]);
         Timeline::create([
-            'id_user' => $id_pendaftaran,
+            'user_id' => $id_pendaftaran,
             'status' => "belum di verifikasi"
         ]);
         return redirect('/data-registration');
@@ -288,7 +288,7 @@ class PendaftaranController extends Controller
             'status_pendaftaran' => "Tidak Sah"
         ]);
         Timeline::create([
-            'id_user' => $id_pendaftaran,
+            'user_id' => $id_pendaftaran,
             'status' => "tidak sah"
         ]);
         return redirect('/data-registration');
@@ -480,7 +480,7 @@ class PendaftaranController extends Controller
             'prestasi' => $pathPrestasi
         ]);
         Timeline::create([
-            'id_user' => $a->userid,
+            'user_id' => $a->userid,
             'status' => "Mengedit Pendaftaran"
         ]);
         return redirect('/data-registration')->with('success', 'Data Terubah!!');

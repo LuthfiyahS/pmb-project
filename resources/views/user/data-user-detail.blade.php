@@ -240,7 +240,7 @@
                                             <h4 class="text-primary">Pengaturan Profil</h4>
                                             <form action="../update-user/{{ $viewData->user_id }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
-                                                <input type="hidden" name="userid" value="{{ auth()->user()->user_id}}">
+                                                <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                                 <div class="row">
                                                     <div class="mb-3 col-md-6">
                                                         <label class="form-label">Nama</label>

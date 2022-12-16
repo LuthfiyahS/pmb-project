@@ -75,7 +75,7 @@ Pendaftaran
     <div class="row">
         <form action="/update-registration/{{ $viewData->id_pendaftaran }}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
-            <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+            <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
             <input type="hidden" name="id" value="{{ auth()->user()->id }}">
             <div class="col-xl-12">
                 <div class="custom-accordion">

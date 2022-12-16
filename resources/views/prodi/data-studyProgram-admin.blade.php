@@ -95,7 +95,7 @@
                                 <div class="modal-body">
                                     <form action="save-prodi" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                         <div class="form-group">
                                             <label for="iduser">Nama Program Studi</label>
                                             <input type="text" class="form-control" id="nama"
@@ -185,7 +185,7 @@
                                                     <form action="update-prodi/{{ $x->id }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         {{ csrf_field() }}
-                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                                         <div class="form-group">
                                                             <input type="hidden" name="id" id="nama" class="form-control"
                                                                 value="{{ $x->id }}">
