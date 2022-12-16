@@ -113,7 +113,14 @@
                                         <strong>NISN</strong><br>
                                         <h5 style="text-indent: 0.5in"><strong>{{ $viewData->nisn }}</strong></h5>
                                         <strong>ASAL SEKOLAH</strong><br>
-                                        <h5 style="text-indent: 0.5in"><strong>{{ $viewData->id_Sekolah }}</strong></h5>
+                                        <h5 style="text-indent: 0.5in"><strong>
+                                            @foreach ($viewSekolah as $z)
+                                                    @if ($z->id == $viewData->sekolah)
+                                                    <h5 class="f-w-500">: {{ $z->nama_sekolah }}</h5>
+                                                    @endif
+                                            @endforeach
+                                            </strong></h5>
+
                                     </div>
                                 </div>
 
@@ -123,24 +130,14 @@
                                 <div class="col-lg-6" style="width: 50%">
                                     <div class="mb-3 mb-4">
                                         <strong>PILIHAN 1</strong><br>
-                                        <h5><strong>
-                                                @foreach ($viewProdi as $z)
-                                                    @if ($z->id_prodi == $viewData->pil1)
-                                                        {{ $z->nama_prodi }}
-                                                    @endif
-                                                @endforeach
+                                        <h5><strong>{{$viewData->pilihan1->nama_prodi}}
                                             </strong></h5>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" style="width: 50%">
                                     <div class="mb-3 mb-4">
                                         <strong>PILIHAN 2</strong><br>
-                                        <h5><strong>
-                                                @foreach ($viewProdi as $z)
-                                                    @if ($z->id_prodi == $viewData->pil2)
-                                                        {{ $z->nama_prodi }}
-                                                    @endif
-                                                @endforeach
+                                        <h5><strong>{{$viewData->pilihan2->nama_prodi}}
                                             </strong></h5>
                                     </div>
                                 </div>

@@ -36,36 +36,25 @@
                     </ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa fa-database"></i>
-                        <span class="nav-text">Data Transaksi</span>
+                    <i class="fa fa-database"></i>
+                    <span class="nav-text">Data Transaksi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="../../data-registration">Pendaftaran</a></li>
-                        <li><a href="../../data-payment">Pembayaran</a></li>
+                        <li><a href="{{route('data-registration')}}">Pendaftaran</a></li>
+                        <li><a href="{{route('data-pembayaran')}}">Pembayaran</a></li>
                     </ul>
                 </li>
-                
-            <li><a href="../../data-announcement" aria-expanded="false">
-                <i class="fa fa-file"></i>
-                <span class="nav-text">Pengumuman</span>
-            </a>
-        </li>
+                <li class="mm-active"><a href="{{route('data-pengumuman')}}" aria-expanded="false">
+                        <i class="fa fa-file"></i>
+                        <span class="nav-text">Pengumuman</span>
+                    </a>
+                </li>
             @else
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($viewDataUser as $x)
-                    @if ($no == 1)
-                        <li><a href="data-registration" aria-expanded="false">
-                                <i class="fa fa-database"></i>
-                                <span class="nav-text">Pendaftaran</span>
-                            </a>
-                        </li>
-                    @endif
-                    @php
-                        $no++;
-                    @endphp
-                @endforeach
+                <li><a href="data-registration" aria-expanded="false">
+                    <i class="fa fa-database"></i>
+                    <span class="nav-text">Pendaftaran</span>
+                    </a>
+                </li>
             @endif
         </ul>
     @endauth
@@ -75,7 +64,11 @@
     <!--ADMIN-->
     <div class="row">
         <div class="col-xl-12">
-            <div class="card">
+            <div class="text-end mt-2 mt-sm-0">
+                <button class="btn btn-info waves-effect waves-light mb-4" onclick="printDiv('cetak')"><i
+                    class="fa fa-print"> </i></button>
+            </div>
+            <div class="card"  id="cetak">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between flex-wrap">
                         <div class="mb-3">
@@ -117,7 +110,7 @@
                         <div class="p-4 border-top">
                             <table class="table mb-0">
 
-                                <thead class="table-primary col-lg-12">
+                                <thead class="table-light col-lg-12">
                                     <tr>
                                         <td colspan="2">Data Siswa Pendaftar</td>
                                     </tr>
@@ -142,10 +135,11 @@
                                                 <tr border="5">
                                                     <th scope="row"  width="50%">Asal Sekolah</th>
                                                     <td width="50%">
-                                                        @foreach ($viewSekolah as $x)
-                                                            @if ($x->NPSN == $viewIdPendaftaran->id_Sekolah)
-                                                                {{ $x->nama_sekolah }}
-                                                            @endif
+                                                        {{-- {{$viewIdPendaftaran->skolah->nama_sekolah}} --}}
+                                                        @foreach ($viewSekolah as $item)
+                                                        @if ($viewIdPendaftaran->sekolah == $item->id)
+                                                         {{ $item->nama_sekolah }}
+                                                        @endif
                                                         @endforeach
                                                     </td>
                                                 </tr>
@@ -158,12 +152,12 @@
                                         <th colspan="3" scope="row">
                                             <br>
                                             @foreach ($viewData as $x)
-                                                    @if($x->hasil_seleksi == 'TIDAK LULUS' && $x->id_pendaftaran== $viewIdPendaftaran->id_pendaftaran)
+                                                    @if($x->hasil_seleksi == 'TIDAK LULUS' && $x->id_pendaftaran== $viewIdPendaftaran->id)
                                                     <div class="alert alert-danger solid alert-rounded" style="border-radius: 0%">
                                                         <strong>Semangat!</strong> Anda TIDAK LULUS seleksi Penerimaan
                                                         Mahasiswa Baru, Silahkan coba kembali, Jangan Menyerah Ya!
                                                     </div>
-                                                    @elseif ($x->hasil_seleksi == 'LULUS' && $x->id_pendaftaran== $viewIdPendaftaran->id_pendaftaran)
+                                                    @elseif ($x->hasil_seleksi == 'LULUS' && $x->id_pendaftaran== $viewIdPendaftaran->id)
                                                         <div class="alert alert-success solid" style="border-radius: 0%">
                                                             <strong>Selamat!</strong> Anda dinyatakan <strong>LULUS</strong>  seleksi
                                                             Penerimaan Mahasiswa Baru
@@ -171,35 +165,16 @@
                                                         <div class="alert alert-outline-success alert-dismissible fade show" style="border-radius: 0%; margin-top:-1rem">
                                                             <table>
                                                                 <tr>
-                                                                    @php
-                                                                        $no2 = 1;
-                                                                    @endphp
-                                                                    @foreach ($viewData as $x)
-                                                                        @if ($no2 == 1)
-                                                                            @if ($x->hasil_seleksi == 'LULUS')
-                                                                                <th scope="row">Program Studi Penerima</th>
-                                                                                <td>
-                                                                                    @foreach ($viewProdi as $y)
-                                                                                        @if ($y->id_prodi == $x->prodi_penerima)
-                                                                                            {{ $y->nama_prodi }}
-                                                                                        @endif
-                                                                                    @endforeach
-                                                                                </td>
-                                                                                </th>
-                                                                            @endif
-
-                                                                            @php
-                                                                                $no2++;
-                                                                            @endphp
-                                                                        @endif
-
-                                                                    @endforeach
+                                                                    <th scope="row">Program Studi Penerima <b>{{$x->prodi->nama_prodi}}</b></th>
                                                                 </tr>
                                                             </table>
                                                         </div>
                                                     @endif
                                         @endforeach
                                     </th>
+                                </tr>
+                                <tr>
+                                    <td scope="row" style="margin-top:-50px"><small>* Bawa Bukti Penerimaan Saat Melakukan Daftar Ulang</small></td>
                                 </tr>
                             </tbody>
                         </table>

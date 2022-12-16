@@ -108,4 +108,16 @@ class Pendaftaran extends Model
     {
         return $this->hasMany(pengumuman::class);
     }
+
+    public function skolah(){
+        return $this->belongsTo(Sekolah::class,'sekolah');
+    }
+
+    public function pilihan1(){
+        return $this->belongsTo(ProgramStudi::class,'pil1');
+    }
+
+    public function pilihan2(){
+        return $this->belongsTo(ProgramStudi::class,'pil2');
+    }
 }

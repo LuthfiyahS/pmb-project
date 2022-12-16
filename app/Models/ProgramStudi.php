@@ -36,6 +36,7 @@ class ProgramStudi extends Model
     {
     return $this->belongsTo(Pengumuman::class);
     }
+    
     public function pendaftaran(){
         return $this->hasMany(Pendaftaran::class);
     }

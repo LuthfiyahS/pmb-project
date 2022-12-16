@@ -10,6 +10,7 @@ use App\Http\Controllers\JadwalKegiatanController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\LogAkunController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,12 @@ Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProv
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');    
+
+
+    //akun
+    Route::get('/profile', [LogAkunController::class, 'dataprofil']);
+    Route::post('/edit-profile', [LogAkunController::class, 'editprofil']);
+    Route::post('/edit-pw/{id}', [LogAkunController::class, 'editakun']);
 
     //user/pengguna
     Route::get('/data-user', [UserController::class, 'datauser'])->name('data-user');

@@ -40,7 +40,7 @@ Pengumuman
                         <span class="nav-text">Data Transaksi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="data-registration">Pendaftaran</a></li>
+                        <li><a href="{{route('data-registration')}}">Pendaftaran</a></li>
                         <li><a href="{{route('data-pembayaran')}}">Pembayaran</a></li>
                     </ul>
                 </li>
@@ -51,21 +51,11 @@ Pengumuman
             </a>
         </li>
             @else
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($viewDataUser as $x)
-                    @if ($no == 1)
-                            <li><a href="data-registration" aria-expanded="false">
-                                    <i class="fa fa-database"></i>
-                                    <span class="nav-text">Pendaftaran</span>
-                                </a>
-                            </li>
-                    @endif
-                    @php
-                        $no++;
-                    @endphp
-                @endforeach
+                    <li><a href="data-registration" aria-expanded="false">
+                            <i class="fa fa-database"></i>
+                            <span class="nav-text">Pendaftaran</span>
+                        </a>
+                    </li>
             @endif
         </ul>
     @endauth
@@ -197,11 +187,18 @@ Pengumuman
                                                         TIDAK LULUS
                                                     </span>
                                                 @endif
-                                            <td>{{ $x->prodi->nama_prodi }}</td>
+                                            <td>@if ($x->hasil_seleksi == "LULUS" || $x->hasil_seleksi == "Lulus" || $x->hasil_seleksi == "lulus") 
+                                                {{ $x->prodi->nama_prodi }}
+                                                @endif
+                                            </td>
                                             <td><strong>{{ $x->nilai_interview }}</strong></a></td>
                                             <td><strong>{{ $x->nilai_test }}</strong></a></td>
                                             <td>
                                                 <div class="d-flex">
+                                                    <a class="btn btn-secondary shadow btn-xs sharp me-1"
+                                                            title="Detail Registration"
+                                                            href="view-announcement/{{ $x->pendaftaran->id_pendaftaran }}"><i
+                                                                class="fa fa-file-alt"></i></a>
                                                     <a class="btn btn-primary shadow btn-xs sharp me-1" title="Edit"
                                                         data-bs-toggle="modal"
                                                         data-bs-target=".edit{{ $x->id_pengumuman }}"><i
@@ -261,11 +258,7 @@ Pengumuman
                                                                             title="id_pendaftaran" name="id_pendaftaran"
                                                                             required>
                                                                             <option value="{{ $x->id_pendaftaran }}">
-                                                                                {{ $x->id_pendaftaran }}</option>
-                                                                            @foreach ($viewIdPendaftaran as $y)
-                                                                                <option value="{{ $y->id_pendaftaran }}">
-                                                                                    {{ $y->id_pendaftaran }}</option>
-                                                                            @endforeach
+                                                                                {{ $x->pendaftaran->id_pendaftaran }}</option>
                                                                         </select>
     
                                                                     </div>
@@ -284,11 +277,12 @@ Pengumuman
                                                                 <label for="iduser">Program Studi Penerima </label>
                                                                 <select class="default-select form-control wide"
                                                                     title="Recipient" name="prodi" required>
-                                                                    <option value="{{ $x->prodi_penerima }}" selected>{{ $x->prodi_penerima }}</option>
-                                                                    @foreach ($viewProdi as $z)
-                                                                        <option value="{{ $z->id_prodi }}">
-                                                                            {{ $z->nama_prodi }}</option>
-                                                                    @endforeach
+                                                                    @if ($x->hasil_seleksi == "LULUS" || $x->hasil_seleksi == "Lulus" || $x->hasil_seleksi == "lulus") 
+                                                                    <option value="{{ $x->prodi_penerima }}" selected>{{ $x->prodi->nama_prodi }}</option>
+                                                                    @endif
+                                                                    <option value="{{ $x->pendaftaran->pil1 }}">Pilihan 1 : {{ $x->pendaftaran->pilihan1->nama_prodi }}</option>
+                                                                    <option value="{{ $x->pendaftaran->pil2 }}">Pilihan 2 : {{ $x->pendaftaran->pilihan2->nama_prodi }}</option>
+                                                                    <option value="tidak diterima0">Tidak DiTerima</option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">

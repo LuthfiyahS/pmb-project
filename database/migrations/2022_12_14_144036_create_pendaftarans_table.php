@@ -98,14 +98,14 @@ class CreatePendaftaransTable extends Migration
             $table->unsignedBigInteger('sekolah');
             $table->foreign('sekolah')
                 ->references('id')
-                ->on('program_studi')
+                ->on('sekolah')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->double('smt1');
             $table->double('smt2');
             $table->double('smt3');
             $table->double('smt4');
             $table->double('smt5');
-            $table->double('smt6');
+            $table->double('smt6')->nullable();
             $table->string('berkas_siswa');//kk akte ijazah raport penghasilan
             $table->string('prestasi')->nullable();
 

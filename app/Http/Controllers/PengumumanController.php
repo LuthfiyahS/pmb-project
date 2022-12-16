@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\ProfileUsers;
 use App\Models\ProgramStudi;
+use App\Models\Sekolah;
 use App\Models\Pengumuman;
 use App\Models\Pendaftaran;
 use App\Models\Timeline;
@@ -41,12 +43,11 @@ class PengumumanController extends Controller
     public function lihatpengumuman(Request $a)
     {
         $dataUser = ProfileUsers::all();
-        $dataditemukan = Pengumuman::where("id_pendaftaran", $a->id_pendaftaran)->LIMIT(1);
+        $dataditemukan = Pengumuman::where("id_pendaftaran", $a->id_pendaftaran)->first();
         $data = Pengumuman::all();
-        $dataid = Pendaftaran::find($a->id_pendaftaran);
-        $dataprod = ProgramStudi::all();
+        $dataid = Pendaftaran::where("id_pendaftaran", $a->id_pendaftaran)->first();
         $dataskl = Sekolah::all();
-        return view ('data-pengumuman-view',['viewDataUser' => $dataUser,'viewData' => $data,'viewIdPendaftaran' => $dataid,'viewProdi' => $dataprod,'viewID' => $dataditemukan,'viewSekolah' => $dataskl]);
+        return view ('pengumuman.data-pengumuman-view',['viewDataUser' => $dataUser,'viewData' => $data,'viewIdPendaftaran' => $dataid,'viewID' => $dataditemukan,'viewSekolah' => $dataskl]);
     }
 
 
@@ -79,10 +80,15 @@ class PengumumanController extends Controller
     public function updatepengumuman(Request $a, $id_pengumuman){
         //$dataUser = ProfileUsers::all();
         try{
-            Pengumuman::where("id_pengumuman", "$id_pengumuman")->update([
+            $prodi =  preg_replace("/[^0-9]/", "", $a->prodi);
+            if($prodi == 0)
+            {
+                $prodi = null;
+            }
+            Pengumuman::where("id_pengumuman", $id_pengumuman)->update([
                 'id_pendaftaran' => $a->id_pendaftaran,
                 'hasil_seleksi' => $a->hasil,
-                'prodi_penerima' => $a->prodi,
+                'prodi_penerima' => $prodi,
                 'nilai_interview' => $a->interview,
                 'nilai_test' => $a->test,
             ]);

@@ -40,7 +40,7 @@ Detail Pendaftaran
                     <span class="nav-text">Data Transaksi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="{{route('data-registration')}}">Pendaftaran</a></li>
+                        <li class="mm-active"><a href="{{route('data-registration')}}">Pendaftaran</a></li>
                         <li><a href="{{route('data-pembayaran')}}">Pembayaran</a></li>
                     </ul>
                 </li>
@@ -183,86 +183,85 @@ Detail Pendaftaran
                             <div class="col-lg-6">
                                 <div class="row mb-2">
                                     <div class="pt-4 border-bottom-1 pb-3">
-                                        <h4 class="text-primary">PROFIL SISWA</h4>
+                                        <h4 class="text-primary"><b>PROFIL SISWA</b></h4>
                                     </div>
                                     <div class="col-sm-4 col-5">
-                                        <h5 class="f-w-500">ID Pendaftaran</h5>
+                                        <h5 class="f-w-400">ID Pendaftaran</h5>
                                     </div>
                                     <div class="col-sm-8 col-7">
-                                        {{ $viewData->id_pendaftaran }}
+                                        <h5 class="f-w-500">: {{ $viewData->id_pendaftaran }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">Nama</h5>
+                                        <h5 class="f-w-400">Nama</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->nama_siswa }}
+                                        <h5 class="f-w-500">: {{ $viewData->nama_siswa }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">Jenis Kelamin</h5>
+                                        <h5 class="f-w-400">Jenis Kelamin</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->jenis_kelamin }}
+                                        <h5 class="f-w-500">: {{ $viewData->jenis_kelamin }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">TTL</h5>
+                                        <h5 class="f-w-400">TTL</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->tempat_lahir }},
-                                        {{ $viewData->tanggal_lahir }}
+                                        <h5 class="f-w-500">: {{ $viewData->tempat_lahir }},{{ $viewData->tanggal_lahir }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">Agama</h5>
+                                        <h5 class="f-w-400">Agama</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->agama }}
+                                        <h5 class="f-w-500">: {{ $viewData->agama }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">NISN</h5>
+                                        <h5 class="f-w-400">NISN</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->nisn }}
+                                        <h5 class="f-w-500">: {{ $viewData->nisn }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">NIK</h5>
+                                        <h5 class="f-w-400">NIK</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->nik }}
+                                        <h5 class="f-w-500">: {{ $viewData->nik }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">Alamat</h5>
+                                        <h5 class="f-w-400">Alamat</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->alamat }}
+                                        <h5 class="f-w-500">: {{ $viewData->alamat }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">Email</h5>
+                                        <h5 class="f-w-400">Email</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->email }}
+                                        <h5 class="f-w-500">: {{ $viewData->email }}</h5>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4 col-6">
-                                        <h5 class="f-w-500">Telepon/What'sApp</h5>
+                                        <h5 class="f-w-400">Telepon/What'sApp</h5>
                                     </div>
                                     <div class="col-sm-8 col-6">
-                                        {{ $viewData->nik }}
+                                        <h5 class="f-w-500">: {{ $viewData->nik }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -276,43 +275,34 @@ Detail Pendaftaran
 
                             
                             <div class="pt-4 border-bottom-1 pb-3">
-                                <h4 class="text-primary">DATA ORANG TUA</h4>
+                                <h4 class="text-primary"><b>DATA ORANG TUA</b></h4>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="row mb-2">
-                                        <div class="col-sm-4 col-6">
-                                            <h5 class="f-w-500">Nama Ayah</h5>
-                                        </div>
-                                        <div class="col-sm-8 col-6">
-                                            {{ $viewData->nama_ayah }}
-                                        </div>
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">Pekerjaan Ayah</h5>
+                                            <h5 class="f-w-400">Nama Ayah</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            {{ $viewData->pekerjaan_ayah }}
+                                            <h5 class="f-w-500">: {{ $viewData->nama_ayah }}</h5>
                                         </div>
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">No Handphone</h5>
+                                            <h5 class="f-w-400">Pekerjaan Ayah</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            {{ $viewData->nohp_ayah }}
+                                            <h5 class="f-w-500">: {{ $viewData->pekerjaan_ayah }}</h5>
                                         </div>
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">Gaji</h5>
+                                            <h5 class="f-w-400">No Handphone</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            {{ $viewData->gaji }}
+                                            <h5 class="f-w-500">: {{ $viewData->nohp_ayah }}</h5>
                                         </div>
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">Dokumen</h5>
+                                            <h5 class="f-w-400">Penghasilan Ayah</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            <a class="btn btn-light shadow btn-xs sharp me-1" title="Detail Registration"
-                                            href="{{ asset($viewData->slip_gaji) }}"><i class="fa fa-file-alt"></i></a>
-                                            <a class="btn btn-light shadow btn-xs sharp me-1" title="Detail Registration"
-                                            href="{{ asset($viewData->kk) }}"><i class="fa fa-file-alt"></i></a>
+                                            <h5 class="f-w-500">: {{ $viewData->penghasilan_ayah }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -320,129 +310,131 @@ Detail Pendaftaran
                                 <div class="col-lg-6">
                                     <div class="row mb-2">
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">Nama Ibu</h5>
+                                            <h5 class="f-w-400">Nama Ibu</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            {{ $viewData->nama_ibu }}
+                                            <h5 class="f-w-500">: {{ $viewData->nama_ibu }}</h5>
                                         </div>
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">Pekerjaan Ibu</h5>
+                                            <h5 class="f-w-400">Pekerjaan Ibu</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            {{ $viewData->pekerjaan_ibu }}
+                                            <h5 class="f-w-500">: {{ $viewData->pekerjaan_ibu }}</h5>
                                         </div>
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">No Handphone</h5>
+                                            <h5 class="f-w-400">No Handphone</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            {{ $viewData->nohp_ibu }}
+                                            <h5 class="f-w-500">: {{ $viewData->nohp_ibu }}</h5>
                                         </div>
                                         <div class="col-sm-3 col-6">
-                                            <h5 class="f-w-500">Tanggungan</h5>
+                                            <h5 class="f-w-400">Penghasilan Ibu</h5>
                                         </div>
                                         <div class="col-sm-9 col-6">
-                                            {{ $viewData->tanggungan }}
+                                            <h5 class="f-w-500">: {{ $viewData->penghasilan_ibu }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-12 col-12">
+                                        <h5 class="f-w-400">Berkas Orang Tua <small>kk,slip gaji</small></h5>
+                                        <div class="col-sm-9 col-7">
+                                            <a href="{{ asset($viewData->berkas_siswa) }}"> <i class="fa fa-file-pdf" style="font-size:48px;color:red"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="pt-4 border-bottom-1 pb-3">
-                                <h4 class="text-primary">DATA REGISTRASI</h4>
+                                <h4 class="text-primary"><b>DATA REGISTRASI</b></h4>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Gelombang</h5>
+                                <div class="col-sm-4 col-4">
+                                    <h5 class="f-w-400">Periode Pendaftaran</h5>
                                     <div class="col-sm-9 col-7">
-                                        {{ $viewData->gelombang }}
+                                        <h5 class="f-w-500">: {{ $viewData->gelombang }} / {{ $viewData->tahun_masuk }}</h5>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Tahun</h5>
+                                <div class="col-sm-4 col-4">
+                                    <h5 class="f-w-400">Pilihan 1</h5>
                                     <div class="col-sm-9 col-7">
-                                        {{ $viewData->tahun_masuk }}
+                                        <h5 class="f-w-500">: {{ $viewData->pilihan1->nama_prodi }}</h5>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Pilhan 1</h5>
+                                <div class="col-sm-4 col-4">
+                                    <h5 class="f-w-400">Pilihan 2</h5>
                                     <div class="col-sm-9 col-7">
-                                        @foreach ($viewProdi as $z)
-                                            @if ($z->id_prodi == $viewData->pil1)
-                                                {{ $z->nama_prodi }}
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Pilhan 2</h5>
-                                    <div class="col-sm-9 col-7">
-                                        @foreach ($viewProdi as $z)
-                                            @if ($z->id_prodi == $viewData->pil2)
-                                                {{ $z->nama_prodi }}
-                                            @endif
-                                        @endforeach
+                                        <h5 class="f-w-500">: {{ $viewData->pilihan2->nama_prodi }}</h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="pt-4 border-bottom-1 pb-3">
-                                <h4 class="text-primary">DATA SEKOLAH DAN PENDIDIKAN SEBELUMNYA</h4>
+                                <h4 class="text-primary"><b>DATA SEKOLAH DAN PENDIDIKAN SEBELUMNYA</b></h4>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Nama Sekolah</h5>
+                                    <h5 class="f-w-400">Asal Sekolah</h5>
                                     <div class="col-sm-9 col-7">
                                         @foreach ($viewSekolah as $z)
-                                                    @if ($z->NPSN == $viewData->id_Sekolah)
-                                                        {{ $z->nama_sekolah }}
+                                                    @if ($z->id == $viewData->sekolah)
+                                                    <h5 class="f-w-500">: {{ $z->nama_sekolah }}</h5>
                                                     @endif
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Jurusan</h5>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-2 col-2">
+                                    <h5 class="f-w-400">Semester 1</h5>
                                     <div class="col-sm-9 col-7">
-                                        {{ $viewData->jurusan }}
+                                        <h5 class="f-w-500">: {{ $viewData->smt1 }}</h5>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Semester 1</h5>
+                                <div class="col-sm-2 col-2">
+                                    <h5 class="f-w-400">Semester 2</h5>
                                     <div class="col-sm-9 col-7">
-                                        {{ $viewData->smt1 }}
+                                        <h5 class="f-w-500">: {{ $viewData->smt2 }}</h5>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Semester 2</h5>
+                                <div class="col-sm-2 col-2">
+                                    <h5 class="f-w-400">Semester 3</h5>
                                     <div class="col-sm-9 col-7">
-                                        {{ $viewData->smt2 }}
+                                        <h5 class="f-w-500">: {{ $viewData->smt3 }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-2">
+                                    <h5 class="f-w-400">Semester 4</h5>
+                                    <div class="col-sm-9 col-7">
+                                        <h5 class="f-w-500">: {{ $viewData->smt4 }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-2">
+                                    <h5 class="f-w-400">Semester 5</h5>
+                                    <div class="col-sm-9 col-7">
+                                        <h5 class="f-w-500">: {{ $viewData->smt5 }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-2">
+                                    <h5 class="f-w-400">Semester 6</h5>
+                                    <div class="col-sm-9 col-7">
+                                        <h5 class="f-w-500">: {{ $viewData->smt5 }}</h5>
+                                        <small><i>*jika ada</i></small>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Semester 3</h5>
+                                <div class="col-sm-6 col-6">
+                                    <h5 class="f-w-400">Berkas Calon Pendaftar <small>raport,ijazah</small></h5>
                                     <div class="col-sm-9 col-7">
-                                        {{ $viewData->smt3 }}
+                                        <a href="{{ asset($viewData->berkas_siswa) }}"> <i class="fa fa-file-pdf" style="font-size:48px;color:red"></i></a>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Semester 4</h5>
-                                    <div class="col-sm-9 col-7">
-                                        {{ $viewData->smt4 }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Semester 5</h5>
-                                    <div class="col-sm-9 col-7">
-                                        {{ $viewData->smt5 }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-3">
-                                    <h5 class="f-w-500">Dokumen</h5>
-                                    <div class="col-sm-9 col-7">
-                                        <a class="btn btn-light shadow btn-xs sharp me-1" title="Detail Registration"
-                                            href="{{ asset($viewData->slip_gaji) }}"><i class="fa fa-file-alt"></i></a>
-                                        <a class="btn btn-light shadow btn-xs sharp me-1" title="Detail Registration"
-                                            href="{{ asset($viewData->kk) }}"><i class="fa fa-file-alt"></i></a>
-                                    </div>
+                                <div class="col-sm-6 col-6">
+                                    @if ($viewData->prestasi != null)
+                                        <h5 class="f-w-400">Prestasi <small><i>*jika ada</i></small></h5>
+                                        <div class="col-sm-9 col-7">
+                                            <a href="{{ asset($viewData->berkas_siswa) }}"> <i class="fa fa-file-pdf" style="font-size:48px;color:red"></i></a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

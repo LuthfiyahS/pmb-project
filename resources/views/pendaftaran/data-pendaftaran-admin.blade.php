@@ -173,7 +173,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <a class="btn btn-light shadow btn-xs sharp me-1"
+                                                        <a class="btn btn-secondary shadow btn-xs sharp me-1"
                                                             title="Detail Registration"
                                                             href="detail-registration/{{ $x->id_pendaftaran }}"><i
                                                                 class="fa fa-file-alt"></i></a>
