@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/invalid-registration/{id_pendaftaran}', [PendaftaranController::class, 'invalidstatuspendaftaran']);
 
     //pembayaran
-    Route::get('/data-payment', [PembayaranController::class, 'datapembayaran']);
+    Route::get('/data-payment', [PembayaranController::class, 'datapembayaran'])->name('data-pembayaran');
     Route::post('/save-payment', [PembayaranController::class, 'simpanpembayaran']);
     Route::post('/update-payment/{id_pembayaran}', [PembayaranController::class, 'updatepembayaran']);
     Route::get('/delete-payment/{id_pembayaran}', [PembayaranController::class, 'hapuspembayaran']);
@@ -85,7 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/invalid-payment/{id_pembayaran}', [PembayaranController::class, 'invalidbayar']);
 
     //pengumuman
-    Route::get('/data-announcement', [PengumumanController::class, 'datapengumuman']);
+    Route::get('/data-announcement', [PengumumanController::class, 'datapengumuman'])->name('data-pengumuman');
     Route::get('/view-announcement/{id_pendaftaran}', [PengumumanController::class, 'lihatpengumuman']);
     //Route::get('/view-announcement', [PengumumanController::class, 'lihatpengumuman']);
     Route::post('/save-announcement', [PengumumanController::class, 'simpanpengumuman']);

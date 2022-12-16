@@ -40,11 +40,11 @@ Pengumuman
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="data-registration">Pendaftaran</a></li>
-                        <li><a href="data-payment">Pembayaran</a></li>
+                        <li><a href="{{route('data-pembayaran')}}">Pembayaran</a></li>
                     </ul>
                 </li>
                 
-            <li><a href="data-announcement" aria-expanded="false">
+            <li><a href="{{route('data-pengumuman')}}" aria-expanded="false">
                 <i class="fa fa-file"></i>
                 <span class="nav-text">Pengumuman</span>
             </a>
