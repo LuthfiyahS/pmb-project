@@ -93,8 +93,8 @@ class UserController extends Controller
         ]);
         return redirect('/data-user')->with('success', 'Data Tersimpan!');
     }catch (\Exception $e){
-        echo $e;
-        //return redirect()->back()->with('error', 'Data Tidak Tersimpan!');
+        //echo $e;
+        return redirect()->back()->with('error', 'Data Tidak Tersimpan, Periksa kembali inputan ada!');
     }
     }
 

@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
     //akun
     Route::get('/profile', [LogAkunController::class, 'dataprofil']);
     Route::post('/edit-profile', [LogAkunController::class, 'editprofil']);
-    Route::post('/edit-pw/{id}', [LogAkunController::class, 'editakun']);
+    Route::post('/edit-pw', [LogAkunController::class, 'editakun']);
 
     //user/pengguna
     Route::get('/data-user', [UserController::class, 'datauser'])->name('data-user');

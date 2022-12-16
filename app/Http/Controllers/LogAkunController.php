@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\ProfileUsers;
 use App\Models\Timeline;
@@ -35,30 +36,27 @@ class LogAkunController extends Controller
 
     //profil
     public function dataprofil(){
-        $dataUser = ProfileUsers::all();
-        $kode = User::all();
-        return view ('profil',['viewDataUser' => $dataUser,'viewData' => $dataUser,'id'=>$kode]);
+        return view ('profil');
     }
 
     //
     public function editprofil(Request $a){
-            $dataUser = ProfileUsers::all();
             $message = [
+                'nama.required' => 'Nama tidak boleh kosong',
                 'tempat.required' => 'Tempat lahir tidak boleh kosong',
                 'tanggal.required' => 'Tanggal lahir tidak boleh kosong',
                 'jk.required' => 'Jenis Kelamin harus dipilih',
                 'hp.required' => 'Family card cannot be empty',
                 'alamat.required' => 'School name must be filled',
-                'ig.required' => 'Major must be filled',
             ];
 
             $cekValidasi = $a->validate([
+                'nama' => 'required',
                 'tempat' => 'required',
                 'tanggal' => 'required',
                 'jk' => 'required',
                 'hp' => 'required',
                 'alamat' => 'required',
-                'ig' => 'required'
             ], $message);
 
             $file = $a->file('foto');
@@ -71,52 +69,58 @@ class LogAkunController extends Controller
                 $pathFoto = $a->pathFoto;
             }
 
-            ProfileUsers::where("Id_user", $a->id)->update([
-                'Foto' => $pathFoto,
-                'Tempat_lahir' => $a->tempat,
-                'Tanggal_lahir' => $a->tanggal,
-                'Gender' => $a->jk,
-                'No_Hp' => $a->hp,
-                'Alamat' => $a->alamat,
-                'Instagram' => $a->ig
+            ProfileUsers::where("user_id", Auth::user()->id)->update([
+                'nama' => $a->nama,
+                'foto' => $pathFoto,
+                'tempat_lahir' => $a->tempat,
+                'tanggal_lahir' => $a->tanggal,
+                'gender' => $a->jk,
+                'no_hp' => $a->hp,
+                'alamat' => $a->alamat,
+                'instagram' => $a->ig
             ]);
-
+            User::where("id", Auth::user()->id)->update([
+                'name' => $a->nama
+            ]);
             Timeline::create([
-                'id_user' => $a->userid,
-                'status' => "Mengedit profilnya"
+                'user_id' => Auth::user()->id,
+                'status' => 'Memperbaharui Profile Akun',
+                'pesan' => Auth::user()->id.'Memperbaharui Profile Akunnya',
+                'tgl_update' => now(),
+                'created_at' => now()
             ]);
-            return redirect('/profile')->with("toastr-success",'data berhasil disimpan');
+            return redirect('/profile')->with('success', 'Profil Akun Terubah!');
 
     }
 
     public function editakun(Request $a){
         $dataUser = ProfileUsers::all();
         $message = [
-            //'name.required' => 'Nama tidak boleh kosong',
-           // 'email.required' => 'Email tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
+            'passwordbaru.required' => 'Password baru tidak boleh kosong',
+            'passwordbaru2.required' => 'Ulangi password baru harus sama dan tidak boleh kosong',
         ];
 
         $cekValidasi = $a->validate([
-           // 'name' => 'required|min:3|max:255|unique:users',
-            //'email' => 'required|email:dns|unique:users',
-            'password' => 'required|min:6|max:255'
+            'password' => 'required',
+            'passwordbaru' => 'required|min:6|max:255',
+            'passwordbaru2' => 'required|min:6|max:255'
         ], $message);
 
-        $cekValidasi['password'] = Hash::make($cekValidasi['password']);
-        //ProfileUsers::where("Id_user", $a->Id_user)->update([
-           // 'Nama' => $a->nama,
-            //'Email' => $a->email,
-        //]);
-        User::where("id", $a->id)->update([
-            //'nama' => $a->nama,
-            //'email' => $a->email,
-            'password' => $cekValidasi['password']
-        ]);
+        if (Hash::check($a->password,  Auth::user()->password)) {
+            $id = Auth::user()->id;
+            User::where("id", $id)->update([
+                'password' => bcrypt($a->passwordbaru),
+            ]);
+
+        }
         Timeline::create([
-            'id_user' => $a->userid,
-            'status' => "Mengedit kata sandinya"
+            'user_id' => Auth::user()->id,
+            'status' => 'Memperbaharui Kata Sandi',
+            'pesan' => Auth::user()->id.'Memperbaharui Kata Sandi Akunnya',
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
-        return redirect('/profile')->with("toastr-success",'data berhasil disimpan');
+        return redirect('/profile')->with('success', 'Kata Sandi Akun Terubah!');
     }
 }
