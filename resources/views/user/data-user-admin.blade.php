@@ -206,11 +206,11 @@
                                                 <a class="btn btn-light shadow btn-xs sharp me-1" title="Data Registration"
                                                     href="data-user/edit/{{ $x->id }}"><i class="fa fa-file-alt"></i></a>
                                                 <a class="btn btn-primary shadow btn-xs sharp me-1" title="Edit"
-                                                    href="data-user/edit/{{ $x->id }}"><i
+                                                    href="{{route('edit-user',$x->id)}}"><i
                                                         class="fa fa-pencil-alt"></i></a>
-                                                <a href="data-user/delete/{{ $x->id }}"
-                                                    class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></a>
+                                                <a class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target=".delete{{  $x->id }}"></i></a>
                                                     <div class="modal fade delete{{ $x->id }}" tabindex="-1"
                                                         role="dialog" aria-hidden="true">
                                                         <div class="modal-dialog modal-sm">
@@ -228,7 +228,7 @@
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-danger light"
                                                                         data-bs-dismiss="modal">Batalkan</button>
-                                                                    <a href="delete-user/{{ $x->id }}">
+                                                                    <a href="{{route('delete-user',$x->id)}}">
                                                                         <button type="submit" class="btn btn-danger shadow">
                                                                             Ya, Hapus Data!
                                                                         </button></a>

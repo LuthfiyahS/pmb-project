@@ -19,8 +19,13 @@ class CreatePengumumanTable extends Migration
             $table->string('id_pendaftaran');
             $table->string('user_id')->nullable();
             $table->string('hasil_seleksi')->nullable();
-            $table->string('jurusan')->nullable();
-            $table->string('kelas')->nullable();
+            $table->unsignedBigInteger('prodi_penerima')->nullable();
+            $table->foreign('prodi_penerima')
+                ->references('id')
+                ->on('program_studi')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('nilai_interview')->nullable();
+            $table->integer('nilai_test')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });

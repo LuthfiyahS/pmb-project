@@ -18,7 +18,7 @@
 @section('menu')
 @auth
         <ul class="metismenu" id="menu">
-            <li><a href="index">
+            <li><a href="{{route('dashboard')}}">
                     <i class="fas fa-home"></i>
                     <span class="nav-text">Beranda</span>
                 </a>
@@ -29,26 +29,26 @@
                         <span class="nav-text">Data Master </span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="data-user">Pengguna</a></li>
-                        <li><a href="data-school">Sekolah</a></li>
-                        <li><a href="data-studyProgram">Program Studi</a></li>
+                        <li><a href="{{route('data-user')}}">Pengguna</a></li>
+                        <li><a href="{{route('data-sekolah')}}">Sekolah</a></li>
+                        <li><a href="{{route('data-prodi')}}">Program Studi</a></li>
+                        <li><a href="{{route('data-jadwal')}}">Jadwal Kegiatan</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa fa-database"></i>
-                        <span class="nav-text">Data Transaksi</span>
+                    <i class="fa fa-database"></i>
+                    <span class="nav-text">Data Transaksi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="data-registration">Pendaftaran</a></li>
+                        <li><a href="{{route('data-registration')}}">Pendaftaran</a></li>
                         <li><a href="{{route('data-pembayaran')}}">Pembayaran</a></li>
                     </ul>
                 </li>
-                
-            <li><a href="{{route('data-pengumuman')}}" aria-expanded="false">
-                <i class="fa fa-file"></i>
-                <span class="nav-text">Pengumuman</span>
-            </a>
-        </li>
+                <li><a href="{{route('data-pengumuman')}}" aria-expanded="false">
+                        <i class="fa fa-file"></i>
+                        <span class="nav-text">Pengumuman</span>
+                    </a>
+                </li>
             @else
                 @php
                     $no = 1;
@@ -80,8 +80,8 @@
                     <!-- center modal -->
                     <div>
                         <button class="btn btn-info waves-effect waves-light mb-4" onclick="printDiv('cetak')"><i class="fa fa-print"> </i></button>
-                        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target=".modal"
-                        style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Tambah Pembayaran </button>
+                        {{-- <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target=".modal"
+                        style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Tambah Pembayaran </button> --}}
                     </div>
 
                     <div class="modal fade modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -96,7 +96,7 @@
                                 <div class="modal-body">
                                     <form action="save-payment" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                         <div class="form-group">
                                             <div class="row">
                                                 <input type="hidden" name="pathid" value="{{auth()->user()->name}}">
@@ -164,21 +164,21 @@
                                 @foreach ($viewData as $x)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $x->id_pendaftaran }}</td>
+                                        <td><a href="detail-registration/{{ $x->pendaftaran->id_pendaftaran }}">{{ $x->pendaftaran->id_pendaftaran }}</a></td>
                                         <td>{{ $x->tgl_pembayaran }}</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    @if ($x->status_pembayaran == 'Dibayar')
+                                                    @if ($x->status == 'Dibayar')
                                                         <span class="badge badge-success">Dibayar<span
                                                                 class="ms-1 fa fa-check"></span>
-                                                        @elseif($x->status_pembayaran =='Belum Bayar')
+                                                        @elseif($x->status =='Belum Bayar')
                                                             <span class="badge badge-warning">Belum Dibayar<span
                                                                     class="ms-1 fas fa-stream"></span>
-                                                            @elseif($x->status_pembayaran =='Tidak Sah')
+                                                            @elseif($x->status =='Tidak Sah')
                                                                 <span class="badge badge-danger">Tidak Sah<span
                                                                         class="ms-1 fa fa-ban"></span>
-                                                                        @elseif ($x->status_pembayaran == 'Gratis')
+                                                                        @elseif ($x->status == 'Gratis')
                                                                         <span class="badge badge-success">Gratis<span
                                                                                 class="ms-1 fa fa-check"></span>
                                                     @endif
@@ -224,7 +224,7 @@
                                                     href="{{ $x->bukti_pembayaran }}" download><i
                                                         class="fa fa-file-alt"></i></a>
                                             @else
-                                                @if ($x->status_pembayaran == "Gratis")
+                                                @if ($x->status == "Gratis")
                                                 Gratis Biaya Pendaftaran
                                                 @else
                                                 Tidak tersedia
@@ -284,7 +284,7 @@
                                                     <form action="update-payment/{{ $x->id_pembayaran }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         {{ csrf_field() }}
-                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                                        <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-xl-12">
@@ -301,19 +301,15 @@
                                                                     <select class="form-control wide" title="id pendaftaran"
                                                                         name="id_pendaftaran" required>
                                                                         <option value="{{ $x->id_pendaftaran }}" selected>
-                                                                            {{ $x->id_pendaftaran }}</option>
-                                                                        @foreach ($viewIdPendaftaran as $z)
-                                                                            <option value="{{ $z->id_pendaftaran }}">
-                                                                                {{ $z->id_pendaftaran }}</option>
-                                                                        @endforeach
+                                                                            {{ $x->pendaftaran->id_pendaftaran }} || {{ $x->pendaftaran->nama_siswa }}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-xl-8">
                                                                     <label for="iduser">Status</label>
                                                                     <select class="default-select form-control wide"
                                                                         title="status" name="status" required>
-                                                                        <option value="{{ $x->status_pembayaran }}" selected>
-                                                                            {{ $x->status_pembayaran }}</option>
+                                                                        <option value="{{ $x->status }}" selected>
+                                                                            {{ $x->status }}</option>
                                                                         <option value="Dibayar">Dibayar</option>
                                                                         <option value="Belum Bayar">Belum Bayar</option>
                                                                         <option value="Tidak Sah">Tidak Sah</option>
@@ -337,7 +333,7 @@
                                                             <button type="button" class="btn btn-danger light"
                                                                 data-bs-dismiss="modal">Tutup</button>
                                                             <button type="submit" name="add"
-                                                                class="btn btn-primary">Tambah Data</button>
+                                                                class="btn btn-primary">Perbaharui Data</button>
                                                         </div>
                                                     </form>
                                                 </div>

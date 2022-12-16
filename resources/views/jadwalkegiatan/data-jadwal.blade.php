@@ -18,7 +18,7 @@
 @section('menu')
 @auth
         <ul class="metismenu" id="menu">
-            <li><a href="index">
+            <li><a href="{{route('dashboard')}}">
                     <i class="fas fa-home"></i>
                     <span class="nav-text">Jadwal Kegiatan</span>
                 </a>

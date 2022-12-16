@@ -17,4 +17,5 @@ class Sekolah extends Model
     public function pendaftaran(){
         return $this->hasMany(Pendaftaran::class);
     }
+    
 }

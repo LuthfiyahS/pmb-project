@@ -17,12 +17,16 @@ class CreatePembayaransTable extends Migration
             $table->id();
             $table->string('id_pembayaran')->unique();
             $table->string('bukti_pembayaran')->nullable();
-            $table->boolean('status');
+            $table->string('status');
             $table->boolean('verifikasi');
             $table->integer('total_bayar')->nullable();
             $table->date('jatuh_tempo')->nullable();
             $table->date('tgl_pembayaran')->nullable();
-            $table->string('id_pendaftaran');
+            $table->unsignedBigInteger('id_pendaftaran');
+            $table->foreign('id_pendaftaran')
+                ->references('id')
+                ->on('pendaftaran')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

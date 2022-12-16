@@ -18,7 +18,7 @@ Pengumuman
 @section('menu')
 @auth
         <ul class="metismenu" id="menu">
-            <li><a href="index">
+            <li><a href="{{route('dashboard')}}">
                     <i class="fas fa-home"></i>
                     <span class="nav-text">Beranda</span>
                 </a>
@@ -29,9 +29,10 @@ Pengumuman
                         <span class="nav-text">Data Master </span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="data-user">Pengguna</a></li>
-                        <li><a href="data-school">Sekolah</a></li>
-                        <li><a href="data-studyProgram">Program Studi</a></li>
+                        <li><a href="{{route('data-user')}}">Pengguna</a></li>
+                        <li><a href="{{route('data-sekolah')}}">Sekolah</a></li>
+                        <li><a href="{{route('data-prodi')}}">Program Studi</a></li>
+                        <li><a href="{{route('data-jadwal')}}">Jadwal Kegiatan</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -84,8 +85,8 @@ Pengumuman
                         <div>
                             <button class="btn btn-info waves-effect waves-light mb-4" onclick="printDiv('cetak')"><i class="fa fa-print"> </i></button>
                             
-                        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target=".modal"
-                        style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Tambah Pengumuman</button>
+                        {{-- <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target=".modal"
+                        style="margin-bottom: 1rem;"><i class="mdi mdi-plus me-1"></i>Tambah Pengumuman</button> --}}
                         </div>
                         <!-- center modal -->
     
@@ -101,7 +102,7 @@ Pengumuman
                                     <div class="modal-body">
                                         <form action="save-announcement" method="POST" enctype="multipart/form-data">
                                             {{ csrf_field() }}
-                                            <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                            <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-xl-6">
@@ -183,9 +184,20 @@ Pengumuman
                                     @foreach ($viewData as $x)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $x->id_pendaftaran }}</td>
-                                            <td>{{ $x->hasil_seleksi }}</td>
-                                            <td>{{ $x->prodi_penerima }}</td>
+                                            <td><a href="detail-registration/{{ $x->pendaftaran->id_pendaftaran }}">{{ $x->pendaftaran->id_pendaftaran }}</a></td>
+                                            <td>
+                                                @if ($x->hasil_seleksi == "LULUS" || $x->hasil_seleksi == "Lulus" || $x->hasil_seleksi == "lulus")
+                                                    <span class="badge light badge-success">
+                                                        <i class="fa fa-circle text-success me-1"></i>
+                                                        LULUS
+                                                    </span>
+                                                @else
+                                                    <span class="badge light badge-danger">
+                                                        <i class="fa fa-circle text-danger me-1"></i>
+                                                        TIDAK LULUS
+                                                    </span>
+                                                @endif
+                                            <td>{{ $x->prodi->nama_prodi }}</td>
                                             <td><strong>{{ $x->nilai_interview }}</strong></a></td>
                                             <td><strong>{{ $x->nilai_test }}</strong></a></td>
                                             <td>
@@ -240,7 +252,7 @@ Pengumuman
                                                         <form action="update-announcement/{{ $x->id_pengumuman }}"
                                                             method="POST" enctype="multipart/form-data">
                                                             {{ csrf_field() }}
-                                                            <input type="hidden" name="userid" value="{{ auth()->user()->id_user}}">
+                                                            <input type="hidden" name="userid" value="{{ auth()->user()->id}}">
                                                             <div class="form-group">
                                                                 <div class="row">
                                                                     <div class="col-xl-6">

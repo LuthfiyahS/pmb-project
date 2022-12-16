@@ -37,9 +37,9 @@ Route::middleware('auth')->group(function () {
     //user/pengguna
     Route::get('/data-user', [UserController::class, 'datauser'])->name('data-user');
     Route::post('/save-user', [UserController::class, 'simpanuser']);
-    Route::get('/data-user/edit/{user_id}', [UserController::class, 'edituser']);
+    Route::get('/edit-user/{user_id}', [UserController::class, 'edituser'])->name('edit-user');
     Route::post('/update-user/{user_id}', [UserController::class, 'updateuser'])->name('update-user');
-    Route::get('/data-user/delete/{user_id}', [UserController::class, 'hapususer']);
+    Route::get('/delete-user/{user_id}', [UserController::class, 'hapususer'])->name('delete-user');
 
     //sekolah
     Route::get('/data-sekolah', [SekolahController::class, 'datasekolah'])->name('data-sekolah');

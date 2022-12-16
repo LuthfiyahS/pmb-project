@@ -31,4 +31,12 @@ class ProgramStudi extends Model
     	$kodeBaru = "PRD".$addNol.$incrementKode;
     	return $kodeBaru;
     }
+
+    public function pengumuman()
+    {
+    return $this->belongsTo(Pengumuman::class);
+    }
+    public function pendaftaran(){
+        return $this->hasMany(Pendaftaran::class);
+    }
 }

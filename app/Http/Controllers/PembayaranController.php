@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProfileUsers;
+use App\Models\Pembayaran;
+use App\Models\Pendaftaran;
+use App\Models\Timeline;
+
+use File;
+use Alert;
 
 class PembayaranController extends Controller
 {
@@ -21,20 +29,20 @@ class PembayaranController extends Controller
             return $next($request);
         });
     }
-    
+
 
     //data pembayaran komplit
     public function datapembayaran(){
-        $dataUser = Pengguna::all();
+        $dataUser = ProfileUsers::all();
         $data = Pembayaran::all();
         $dataid = Pendaftaran::all();
-        return view ('data-pembayaran-admin',['viewDataUser' => $dataUser,'viewData' => $data,'viewIdPendaftaran' => $dataid]);
+        return view ('pembayaran.data-pembayaran-admin',['viewDataUser' => $dataUser,'viewData' => $data,'viewIdPendaftaran' => $dataid]);
     }
 
     public function simpanpembayaran(Request $a)
     {
         try{
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         $kode = Pembayaran::id();
         $file = $a->file('bukti');
         $kodependaftaran = $a->id_pendaftaran;
@@ -45,11 +53,11 @@ class PembayaranController extends Controller
         Pembayaran::create([
             'id_pembayaran' => $kode,
             'bukti_pembayaran' => $pathBukti,
-            'status_pembayaran'=> $a->status,
+            'status'=> $a->status,
             'id_pendaftaran' =>$a->id_pendaftaran
         ]);
         Timeline::create([
-            'id_user' => $a->userid,
+            'user_id' => $a->userid,
             'status' => "Memperbaharui Pembayaran"
         ]);
         return redirect('/data-payment')->with('success', 'Data Tersimpan!!');
@@ -57,8 +65,9 @@ class PembayaranController extends Controller
         return redirect()->back()->with('error', 'Data Tidak Berhasil Disimpan!');
     }
     }
+
     public function updatepembayaran(Request $a, $id_pembayaran){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         try{
             $file = $a->file('bukti');
             if(file_exists($file)){
@@ -71,24 +80,27 @@ class PembayaranController extends Controller
                 $pathBukti = $a->pathnya;
             }
             
-            Pembayaran::where("id_pembayaran", "$id_pembayaran")->update([
+            Pembayaran::where("id_pembayaran", $id_pembayaran)->update([
                 'bukti_pembayaran' => $pathBukti,
-                'status_pembayaran'=> $a->status,
-                'id_pendaftaran' =>$a->id_pendaftaran
+                'status'=> $a->status
             ]);
             Timeline::create([
-                'id_user' => $a->userid,
-                'status' => "Memperbaharui Pembayaran"
+                'user_id' => Auth::user()->id,
+                'status' => "Pembayaran",    
+                'pesan' => 'Memperbaharui Pembayaran',
+                'tgl_update' => now(),
+                'created_at' => now()
             ]);
             return redirect('/data-payment')->with('success', 'Data Terubah!!');
         
 
         } catch (\Exception $e){
+            //echo $e;
             return redirect()->back()->with('error', 'Data Tidak Berhasil Diubah!');
         }
     }
     public function updatebuktipembayaran(Request $a){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         try{
             $file = $a->file('pem');
             //if(file_exists($file)){
@@ -105,12 +117,15 @@ class PembayaranController extends Controller
                 if($x->id_pendaftaran==$a->id_pendaftaran){
                     Pembayaran::where("id_pembayaran", "$x->id_pembayaran")->update([
                         'bukti_pembayaran' => $pathBukti,
-                        'status_pembayaran'=> "Dibayar",
+                        'status'=> "Dibayar",
                         'id_pendaftaran' =>$x->id_pendaftaran
                     ]);
                     Timeline::create([
-                        'id_user' => $a->userid,
-                        'status' => "Mengupload bukti pembayaran"
+                        'user_id' => Auth::user()->id,
+                        'status' => "Pembayaran",    
+                        'pesan' => 'Mengunggah Bukti Pembayaran',
+                        'tgl_update' => now(),
+                        'created_at' => now()
                     ]);
                 }
             }
@@ -124,7 +139,7 @@ class PembayaranController extends Controller
     }
 
     public function hapuspembayaran($id_pembayaran){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         try{
             $data = Pembayaran::find($id_pembayaran);
             $data->delete();
@@ -135,40 +150,49 @@ class PembayaranController extends Controller
     }
 
     public function verifikasipembayaran($id_pembayaran){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         Pembayaran::where("id_pembayaran", "$id_pembayaran")->update([
-            'status_pembayaran' => "Dibayar"
+            'status' => "Dibayar"
         ]);
 
         Timeline::create([
-            'id_user' => $id_pembayaran,
-            'status' => "Melakukan verifikasi pembayaran"
+            'user_id' => Auth::user()->id,
+            'status' => "Pembayaran",    
+            'pesan' => 'Memperbaharui Status Pembayaran (Dibayar)',
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-payment');
     }
 
     public function belumbayar($id_pembayaran){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         Pembayaran::where("id_pembayaran", "$id_pembayaran")->update([
-            'status_pembayaran' => "Belum Bayar"
+            'status' => "Belum Bayar"
         ]);
 
         Timeline::create([
-            'id_user' => $id_pembayaran,
-            'status' => "Mengganti status Pembayaran"
+            'user_id' => Auth::user()->id,
+            'status' => "Pembayaran",    
+            'pesan' => 'Memperbaharui Status Pembayaran (Belum Bayar)',
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-payment');
     }
 
     public function invalidbayar($id_pembayaran){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         Pembayaran::where("id_pembayaran", "$id_pembayaran")->update([
-            'status_pembayaran' => "Tidak Sah"
+            'status' => "Tidak Sah"
         ]);
 
         Timeline::create([
-            'id_user' => $id_pembayaran,
-            'status' => "Mengganti status Pembayaran"
+            'user_id' => Auth::user()->id,
+            'status' => "Pembayaran",    
+            'pesan' => 'Memperbaharui Status Pembayaran (Tidak Sah)',
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-payment');
     }

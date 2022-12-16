@@ -240,8 +240,11 @@ class PendaftaranController extends Controller
         ]);
 
         Timeline::create([
-            'user_id' => $a->user_id,
-            'status' => "Melakukan pendaftaran penerimaan mahasiswa baru"
+            'user_id' => Auth::user()->id,
+            'status' => "Pendaftaran",    
+            'pesan' => "Melakukan pendaftaran penerimaan mahasiswa baru",
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
 
         $rolenow = User::find($a->id);
@@ -264,8 +267,11 @@ class PendaftaranController extends Controller
             'status_pendaftaran' => "Terverifikasi"
         ]);
         Timeline::create([
-            'user_id' => $id_pendaftaran,
-            'status' => "di verifikasi"
+            'user_id' => Auth::user()->id,
+            'status' => "Pendaftaran",    
+            'pesan' => "Melakukan verifikasi pendaftaran ".$id_pendaftaran,
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-registration');
     }
@@ -276,8 +282,11 @@ class PendaftaranController extends Controller
             'status_pendaftaran' => "Belum Terverifikasi"
         ]);
         Timeline::create([
-            'user_id' => $id_pendaftaran,
-            'status' => "belum di verifikasi"
+            'user_id' => Auth::user()->id,
+            'status' => "Pendaftaran",    
+            'pesan' => "Melakukan perubahan verifikasi pendaftaran ".$id_pendaftaran." (Belum Terverifikasi)",
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-registration');
     }
@@ -288,8 +297,11 @@ class PendaftaranController extends Controller
             'status_pendaftaran' => "Tidak Sah"
         ]);
         Timeline::create([
-            'user_id' => $id_pendaftaran,
-            'status' => "tidak sah"
+            'user_id' => Auth::user()->id,
+            'status' => "Pendaftaran",    
+            'pesan' => "Melakukan perubahan verifikasi pendaftaran ".$id_pendaftaran." (Tidak Sah)",
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-registration');
     }
@@ -480,8 +492,11 @@ class PendaftaranController extends Controller
             'prestasi' => $pathPrestasi
         ]);
         Timeline::create([
-            'user_id' => $a->userid,
-            'status' => "Mengedit Pendaftaran"
+            'user_id' => Auth::user()->id,
+            'status' => "Pendaftaran",    
+            'pesan' => "Melakukan perubahan data pendaftaran ".$id_pendaftaran,
+            'tgl_update' => now(),
+            'created_at' => now()
         ]);
         return redirect('/data-registration')->with('success', 'Data Terubah!!');
         } catch (\Exception $e){

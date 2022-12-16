@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ProfileUsers;
+use App\Models\ProgramStudi;
+use App\Models\Pengumuman;
+use App\Models\Pendaftaran;
+use App\Models\Timeline;
+use Alert;
 
 class PengumumanController extends Controller
 {
@@ -25,20 +31,20 @@ class PengumumanController extends Controller
     //data pengumuman kompliit
     public function datapengumuman()
     {
-        $dataUser = Pengguna::all();
+        $dataUser = ProfileUsers::all();
         $data = Pengumuman::all();
         $dataid = Pendaftaran::all();
-        $dataprod = Prodi::all();
-        return view ('data-pengumuman-admin',['viewDataUser' => $dataUser,'viewData' => $data,'viewIdPendaftaran' => $dataid,'viewProdi' => $dataprod]);
+        $dataprod = ProgramStudi::all();
+        return view ('pengumuman.data-pengumuman-admin',['viewDataUser' => $dataUser,'viewData' => $data,'viewIdPendaftaran' => $dataid,'viewProdi' => $dataprod]);
     }
 
     public function lihatpengumuman(Request $a)
     {
-        $dataUser = Pengguna::all();
+        $dataUser = ProfileUsers::all();
         $dataditemukan = Pengumuman::where("id_pendaftaran", $a->id_pendaftaran)->LIMIT(1);
         $data = Pengumuman::all();
         $dataid = Pendaftaran::find($a->id_pendaftaran);
-        $dataprod = Prodi::all();
+        $dataprod = ProgramStudi::all();
         $dataskl = Sekolah::all();
         return view ('data-pengumuman-view',['viewDataUser' => $dataUser,'viewData' => $data,'viewIdPendaftaran' => $dataid,'viewProdi' => $dataprod,'viewID' => $dataditemukan,'viewSekolah' => $dataskl]);
     }
@@ -47,7 +53,7 @@ class PengumumanController extends Controller
     public function simpanpengumuman(Request $a)
     {
         try{
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
             $kode = Pengumuman::id();
             Pengumuman::create([
                 'id_pengumuman' => $kode,
@@ -58,8 +64,11 @@ class PengumumanController extends Controller
                 'nilai_test' => $a->test
             ]);
             Timeline::create([
-                'id_user' => $a->userid,
-                'status' => "Membuat pengumuman"
+                'user_id' => Auth::user()->id,
+                'status' => "Pengumuman",    
+                'pesan' => 'Membuat Pengumuman',
+                'tgl_update' => now(),
+                'created_at' => now()
             ]);
             return redirect('/data-announcement')->with('success', 'Data Tersimpan!!');
         } catch (\Exception $e){
@@ -68,7 +77,7 @@ class PengumumanController extends Controller
     }
 
     public function updatepengumuman(Request $a, $id_pengumuman){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         try{
             Pengumuman::where("id_pengumuman", "$id_pengumuman")->update([
                 'id_pendaftaran' => $a->id_pendaftaran,
@@ -83,8 +92,11 @@ class PengumumanController extends Controller
                 ]);
             }
             Timeline::create([
-                'id_user' => $a->userid,
-                'status' => "Mengupdate pengumuman"
+                'user_id' => Auth::user()->id,
+                'status' => "Pengumuman",    
+                'pesan' => 'Memperbaharui Pengumuman',
+                'tgl_update' => now(),
+                'created_at' => now()
             ]);
             return redirect('/data-announcement')->with('success', 'Data Terubah!!');
         } catch (\Exception $e){
@@ -94,7 +106,7 @@ class PengumumanController extends Controller
     
 
     public function hapuspengumuman($id_pengumuman){
-        //$dataUser = Pengguna::all();
+        //$dataUser = ProfileUsers::all();
         try{
             $data = Pengumuman::find($id_pengumuman);
             $data->delete();
