@@ -17,9 +17,9 @@ class ProgramStudi extends Model
 
     public static function id()
     {
-    	$kode = DB::table('program_studi')->max('id');
+    	$kode = DB::table('program_kursus')->max('id');
     	$addNol = '';
-    	$kode = str_replace("PRD", "", $kode);
+    	$kode = str_replace("KRS", "", $kode);
     	$kode = (int) $kode + 1;
         $incrementKode = $kode;
 
@@ -28,7 +28,7 @@ class ProgramStudi extends Model
     	} elseif (strlen($kode) == 2) {
     		$addNol = "0";
         }
-    	$kodeBaru = "PRD".$addNol.$incrementKode;
+    	$kodeBaru = "KRS".$addNol.$incrementKode;
     	return $kodeBaru;
     }
 

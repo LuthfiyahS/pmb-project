@@ -96,34 +96,29 @@ class Pendaftaran extends Model
 
     public static function id()
     {
-    	$kode = DB::table('pendaftaran')->count();
-    	$addNol = '';
-        $waktu = now()->format('Y');
-    	$kode = str_replace($waktu,"", $kode);
-    	$kode = (int) $kode + 1;
-        $incrementKode = $kode;
+        $data = DB::table('pendaftaran')->orderby('id_pendaftaran','DESC')->first();
+        $kodeakhir5 = substr($data->id_pendaftaran,-4);
+        $kodeku= (int)$kodeakhir5;
+        $addNol = '';
+        $kodetb = 'PENDPSB';
+        $kode = (int)$kodeku + 1;
 
-    	if (strlen($kode) == 1) {
-            $tgl = now()->format('j');
-            if (strlen($tgl) == 1) {
-                $addNol = "0".now()->format('j')."00";
-            } elseif (strlen($tgl) == 2) {
-                $addNol = now()->format('j')."00";
-            } 
-    	} elseif (strlen($kode) == 2) {
-    		$addNol = now()->format('h')."0";
-    	} elseif (strlen($kode) == 3) {
-    		$addNol = "00";
+        if (strlen($kode) == 1) {
+            $addNol = "000";
+        } elseif (strlen($kode) == 2) {
+            $addNol = "00";
+        } elseif (strlen($kode) == 3) {
+            $addNol = "0";
         } elseif (strlen($kode) == 4) {
-    		$addNol = "0";
+            $addNol = "";
         }
-    	$kodeBaru = $waktu.$addNol.$incrementKode;
+        $kodeBaru = $kodetb.now()->format('y').$addNol.$kode;
     	return $kodeBaru;
     }
 
     public function user()
     {
-         return $this->belongsTo(\App\Models\User::class, 'user_id');
+         return $this->belongsTo(User::class, 'user_id');
     }
 
      public function pembayaran()
@@ -133,7 +128,7 @@ class Pendaftaran extends Model
 
     public function pengumuman()
     {
-        return $this->hasMany(pengumuman::class);
+        return $this->hasMany(Pengumuman::class);
     }
 
     public function skolah(){

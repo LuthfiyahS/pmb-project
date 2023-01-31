@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SocialAccount extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
     /**
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
@@ -15,5 +18,4 @@ class SocialAccount extends Model
     {
     return $this->belongsTo(User::class);
     }
-
 }

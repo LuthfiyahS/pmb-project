@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
 
     //akun
-    Route::get('/profile', [LogAkunController::class, 'dataprofil']);
+    Route::get('/profile', [LogAkunController::class, 'dataprofil'])->name("profile");
     Route::post('/edit-profile', [LogAkunController::class, 'editprofil']);
     Route::post('/edit-pw', [LogAkunController::class, 'editakun']);
 

@@ -129,6 +129,7 @@ class PendaftaranController extends Controller
 
         $kodependaftaran = Pendaftaran::id();
 
+        
         $file = $a->file('foto');
         $nama_file = "Pasfoto".time() . "-" . $file->getClientOriginalName();
         $namaFolder = 'data pendaftar/'.$kodependaftaran;
@@ -209,8 +210,10 @@ class PendaftaranController extends Controller
         ]);
         $pendaftaranbaru = Pendaftaran::orderBy('id','DESC')->first();
         $id_pendaftaran = $pendaftaranbaru->id;
+        
         //tambah insert
         $kodepembayaran = Pembayaran::id();
+        echo $kodepembayaran;
         Pembayaran::create([
             'id_pembayaran' => $kodepembayaran,
             //'bukti_pembayaran' => "NULL",
@@ -482,26 +485,14 @@ class PendaftaranController extends Controller
         //$dataUser = ProfileUsers::all();
         try{
             $data = Pendaftaran::find($id_pendaftaran);
-            File::delete($data->foto);
+            File::delete($data->pas_foto);
             File::delete($data->berkas_ortu);
             File::delete($data->berkas_siswa);
             File::delete($data->prestasi);
+            
+            $dataPembayaran = Pembayaran::where("id_pendaftaran",$id_pendaftaran)->first();
+            File::delete($dataPembayaran->bukti_pembayaran);
             $data->delete();
-            $dataPembayaran = Pembayaran::where("id_pendaftaran",$id_pendaftaran)->get();
-            foreach($dataPembayaran as $x){
-                if($x->id_pendaftaran==$id_pendaftaran){
-                    $dataPembayaranhapus = Pembayaran::find($x->id_pembayaran);
-                    File::delete($dataPembayaranhapus->bukti_pembayaran);
-                    $dataPembayaranhapus->delete();
-                }
-            }
-            $dataPengumuman = Pengumuman::where("id_pendaftaran",$id_pendaftaran)->get();
-            foreach($dataPengumuman as $x){
-                if($x->id_pendaftaran==$id_pendaftaran){
-                    $dataPengumumanhapus = Pengumuman::find($x->id_pengumuman);
-                    $dataPengumumanhapus->delete();
-                }
-            }
             return redirect('/data-registration')->with('success', 'Data Terhapus!!');
         } catch (\Exception $e){
             return redirect()->back()->with('error', 'Data Tidak Berhasil Dihapus!');

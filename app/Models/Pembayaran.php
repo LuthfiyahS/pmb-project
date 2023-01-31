@@ -19,22 +19,28 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(Pendaftaran::class, 'id_pendaftaran');
  	}
-    public static function id()
-    {
-    	$kode = DB::table('pembayaran')->max('id_pembayaran');
-    	$addNol = '';
-    	$kode = str_replace("PAY", "", $kode);
-    	$kode = (int) $kode + 1;
-        $incrementKode = $kode;
+	 public static function id()
+	 {
+		$data = DB::table('pembayaran')->orderby('id_pendaftaran','DESC')->first();
+		$kodeakhir5 = substr($data->id_pendaftaran,-3);
+		$kodeku= (int)$kodeakhir5;
+		$addNol = '';
+		$kodetb = 'TAG';
+		//$kode = str_replace($kodetb,"", $kode);
+		$kode = (int)$kodeku + 1;
+		$incrementKode = $kode;
 
-    	if (strlen($kode) == 1) {
-    		$addNol = "000";
-    	} elseif (strlen($kode) == 2) {
-    		$addNol = "00";
-    	} elseif (strlen($kode) == 3) {
-    		$addNol = "0";
-        } 
-    	$kodeBaru = "PAY".$addNol.$incrementKode;
-    	return $kodeBaru;
-    }
+
+		if (strlen($kode) == 1) {
+			$addNol = "000";
+		} elseif (strlen($kode) == 2) {
+			$addNol = "00";
+		} elseif (strlen($kode) == 3) {
+			$addNol = "0";
+		} elseif (strlen($kode) == 4) {
+			$addNol = "";
+		}
+		$kodeBaru = $kodetb.now()->format('y').$addNol.$incrementKode;
+		 return $kodeBaru;
+	 }
 }

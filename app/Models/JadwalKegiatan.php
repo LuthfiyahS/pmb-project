@@ -16,9 +16,9 @@ class JadwalKegiatan extends Model
 
     public static function id()
     {
-    	$kode = DB::table('program_studi')->max('id');
+    	$kode = DB::table('jadwal_kegiatan')->max('id');
     	$addNol = '';
-    	$kode = str_replace("PRD", "", $kode);
+    	$kode = str_replace("JDW", "", $kode);
     	$kode = (int) $kode + 1;
         $incrementKode = $kode;
 
@@ -27,7 +27,7 @@ class JadwalKegiatan extends Model
     	} elseif (strlen($kode) == 2) {
     		$addNol = "0";
         }
-    	$kodeBaru = "PRD".$addNol.$incrementKode;
+    	$kodeBaru = "JDW".$addNol.$incrementKode;
     	return $kodeBaru;
     }
     public function pendaftaran()

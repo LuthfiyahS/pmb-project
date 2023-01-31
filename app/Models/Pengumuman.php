@@ -17,18 +17,26 @@ class Pengumuman extends Model
 
     public static function id()
     {
-    	$kode = DB::table('pengumuman')->max('id_pengumuman');
-    	$addNol = '';
-    	$kode = str_replace("ANN", "", $kode);
-    	$kode = (int) $kode + 1;
-        $incrementKode = $kode;
+    	$data = DB::table('pembayaran')->orderby('id_pendaftaran','DESC')->first();
+		$kodeakhir5 = substr($data->id_pendaftaran,-3);
+		$kodeku= (int)$kodeakhir5;
+		$addNol = '';
+		$kodetb = 'TAG';
+		//$kode = str_replace($kodetb,"", $kode);
+		$kode = (int)$kodeku + 1;
+		$incrementKode = $kode;
 
-    	if (strlen($kode) == 1) {
-    		$addNol = "00";
-    	} elseif (strlen($kode) == 2) {
-    		$addNol = "0";
-    	} 
-    	$kodeBaru = "ANN".$addNol.$incrementKode;
+
+		if (strlen($kode) == 1) {
+			$addNol = "000";
+		} elseif (strlen($kode) == 2) {
+			$addNol = "00";
+		} elseif (strlen($kode) == 3) {
+			$addNol = "0";
+		} elseif (strlen($kode) == 4) {
+			$addNol = "";
+		}
+		$kodeBaru = 'ANN'.now()->format('y').$addNol.$incrementKode;
     	return $kodeBaru;
     }
 
@@ -42,6 +50,6 @@ class Pengumuman extends Model
       }
     public function user()
     {
-         return $this->belongsTo(\App\Models\User::class, 'user_id');
+         return $this->belongsTo(User::class, 'user_id');
     }
 }

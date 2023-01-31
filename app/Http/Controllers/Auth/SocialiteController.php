@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\SocialAccount;
-use App\User;
+use App\Models\SocialAccount;
+use App\Models\User;
+use App\Models\Timeline;
+use App\Models\ProfileUsers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -37,7 +39,7 @@ class SocialiteController extends Controller
 
         Auth()->login($authUser, true);
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
 
     }
 
@@ -62,8 +64,25 @@ class SocialiteController extends Controller
 
             if (! $user) {
                 $user = User::create([
-                    'name'  => $socialUser->getName(),
-                    'email' => $socialUser->getEmail()
+                    'name' => $socialUser->name,
+                    'email' => $socialUser->email,
+                    'role' => "Calon Peserta",
+                    // 'password' => Hash::make($socialUser->password),
+                    'created_at' => now()
+                ]);
+                $usersid  = User::orderBy('id', 'DESC')->first();
+                ProfileUsers::create([
+                    'user_id' => $usersid->id,
+                    'nama' => $socialUser->name,
+                    'email' => $socialUser->email,
+                    'created_at' => now()
+                ]);
+                Timeline::create([
+                    'user_id' => $usersid->id,
+                    'status' => "Bergabung",
+                    'pesan' => 'Membuat Akun baru',
+                    'tgl_update' => now(),
+                    'created_at' => now()
                 ]);
             }
 
